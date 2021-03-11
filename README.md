@@ -1,3 +1,3 @@
 # Portfolio
 Links:
-      https://darkmidget.github.io/Portfolio/main.html
+      https://darkmidget.github.io/Portfolio/index.html
