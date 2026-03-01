@@ -34,4 +34,6 @@ A professional portfolio website built from scratch using HTML, CSS, and JavaScr
 - CSS Custom Properties for theming
 - CSS Grid & Flexbox for layouts
   `
+
 };
+if (typeof window !== 'undefined') window.PROJECT_portfolio_website = PROJECT_portfolio_website;

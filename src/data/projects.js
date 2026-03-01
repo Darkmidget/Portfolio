@@ -82,10 +82,50 @@ const PORTFOLIO_DATA = {
   ],
 
   // ─── Projects ────────────────────────────
-  projects: [
-    PROJECT_delivery_robot,
-    PROJECT_portfolio_website,
-    PROJECT_trading_search,
-    PROJECT_firefighter_display,
-  ]
+  // Build the projects array defensively: some browsers or loaders
+  // may not expose `const` globals as `window` properties, so try
+  // both identifier lookup and `window` fallback. Filter out any
+  // undefined entries so the UI doesn't break.
+  projects: (function(){
+    // Primary approach: try to read well-known globals created by each
+    // project file. If any are missing (for example due to loading
+    // order differences or an updated manifest), fall back to scanning
+    // `window` for any `PROJECT_` prefixed globals so no project is
+    // accidentally omitted from the UI.
+    const tryGet = (name) => {
+      try {
+        // eslint-disable-next-line no-undef
+        if (typeof eval(name) !== 'undefined') return eval(name);
+      } catch (e) {
+        // ignore
+      }
+      return (typeof window !== 'undefined') ? window[name] : undefined;
+    };
+
+    const wellKnown = [
+      'PROJECT_delivery_robot',
+      'PROJECT_portfolio_website',
+      'PROJECT_trading_search',
+      'PROJECT_firefighter_display'
+    ];
+
+    let list = wellKnown.map(tryGet).filter(p => p && typeof p === 'object');
+
+    if (typeof window !== 'undefined') {
+      // If we didn't find all projects, scan globals for any PROJECT_ entries
+      // and include them (preserve existing order, then append extras).
+      const foundKeys = new Set(list.map(p => p.id));
+      const extras = Object.keys(window)
+        .filter(k => k.indexOf('PROJECT_') === 0)
+        .map(k => window[k])
+        .filter(p => p && typeof p === 'object' && !foundKeys.has(p.id));
+
+      if (extras.length) {
+        console.warn('projects.js: appending', extras.length, 'additional PROJECT_ entries');
+        list = list.concat(extras);
+      }
+    }
+
+    return list;
+  })()
 };

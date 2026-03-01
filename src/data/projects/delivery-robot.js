@@ -45,3 +45,4 @@ This was a collaborative student project that emphasized iterative prototyping, 
 Roles included ROS integration, embedded control, GUI development, and mechanical design.
   `
 };
+if (typeof window !== 'undefined') window.PROJECT_delivery_robot = PROJECT_delivery_robot;

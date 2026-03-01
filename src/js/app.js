@@ -282,6 +282,15 @@ function renderAllProjects() {
 
   const projects = PORTFOLIO_DATA.projects;
 
+  // Debug: log loaded project ids to help diagnose missing entries
+  try {
+    console.groupCollapsed('PORTFOLIO_DATA.projects');
+    projects.forEach(p => console.log(p.id, 'featured=', !!p.featured));
+    console.groupEnd();
+  } catch (e) {
+    console.warn('Could not enumerate PORTFOLIO_DATA.projects', e);
+  }
+
   // Build category filters
   const categories = ['All', ...new Set(projects.map(p => p.category))];
   if (filterContainer) {

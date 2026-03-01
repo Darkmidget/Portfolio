@@ -24,4 +24,6 @@ Early-stage research into trading analysis and financial data search tools.
 - Explore algorithmic approaches to pattern recognition
 - Build a personal toolkit for financial research
   `
+
 };
+if (typeof window !== 'undefined') window.PROJECT_trading_search = PROJECT_trading_search;
