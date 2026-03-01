@@ -9,6 +9,7 @@
     "3d-food-extruder.js",
     "lg-retail-innovation.js",
     "semicon_apc_plasma_etch.js",
-    "lendah.js"
+    "lendah.js",
+    "autonomous-navigation-predictive-control.js"
   ]
 }
