@@ -13,7 +13,7 @@ const PROJECT_self_powered_iot_forest_monitoring_sensor = {
     "PETG"
   ],
   thumbnail: "",
-  date: "2026",
+  date: "2025",
   summary:
     "Modular self-powered IoT sensor for off-grid forest monitoring with low-frequency RF transmission and a PETG + CaCO3 composite enclosure.",
   featured: false,
