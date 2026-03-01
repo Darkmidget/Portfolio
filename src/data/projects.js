@@ -106,7 +106,9 @@ const PORTFOLIO_DATA = {
       'PROJECT_delivery_robot',
       'PROJECT_portfolio_website',
       'PROJECT_trading_search',
-      'PROJECT_firefighter_display'
+      'PROJECT_firefighter_display',
+      'PROJECT_sand_e_beach_cleaning_robot',
+      'PROJECT_3d_food_extruder'
     ];
 
     let list = wellKnown.map(tryGet).filter(p => p && typeof p === 'object');
