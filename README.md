@@ -292,7 +292,7 @@ git push origin main
 4. Choose `main` branch
 5. Save
 
-Your portfolio will be live at: `https://yourusername.github.io/Portfolio`
+Your portfolio will be live at: `https://darkmidget.github.io/Portfolio`
 
 ---
 
