@@ -58,6 +58,7 @@ const PORTFOLIO_DATA = {
     links: {
       github: "https://github.com/Darkmidget",
       email: "vincentho322001@gmail.com",
+      linkedin: "https://linkedin.com/in/vincent-darkmidget",
     }
   },
 
