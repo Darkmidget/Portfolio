@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | Vincent Ho</title>
+  <meta name="description" content="Browse all projects by Vincent Ho — robotics, web development, engineering and more.">
+  <link rel="stylesheet" href="src/css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="navbar-container"></div>
+
+  <main>
+    <div class="page-header">
+      <div class="container">
+        <h1>Projects</h1>
+        <p>All my projects, experiments, and ongoing work. Filter by category or search to find what you're looking for.</p>
+      </div>
+    </div>
+
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="filter-bar">
+          <input type="text" class="search-input" placeholder="Search projects..." aria-label="Search projects">
+          <div class="filter-pills" id="filter-pills"></div>
+        </div>
+        <div class="projects-grid" id="all-projects"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="src/data/projects.js"></script>
+  <script src="src/js/app.js"></script>
+  <script>
+    renderNavbar('projects');
+    renderFooter();
+    renderAllProjects();
+  </script>
+</body>
+</html>

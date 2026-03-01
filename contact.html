@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Vincent Ho</title>
+  <meta name="description" content="Get in touch with Vincent Ho — email, GitHub, and other ways to connect.">
+  <link rel="stylesheet" href="src/css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="navbar-container"></div>
+
+  <main>
+    <div class="page-header">
+      <div class="container">
+        <h1>Contact</h1>
+        <p>Feel free to reach out — I'm always open to connecting, collaborating, or just having a conversation.</p>
+      </div>
+    </div>
+
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="contact-grid" id="contact-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="src/data/projects.js"></script>
+  <script src="src/js/app.js"></script>
+  <script>
+    renderNavbar('contact');
+    renderFooter();
+    renderContactInfo();
+  </script>
+</body>
+</html>
