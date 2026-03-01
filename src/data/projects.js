@@ -68,7 +68,6 @@ const PORTFOLIO_DATA = {
     { name: "JavaScript", category: "Languages" },
     { name: "HTML/CSS", category: "Languages" },
     { name: "C/C++", category: "Languages" },
-    { name: "SQL", category: "Languages" },
     { name: "Git", category: "Tools" },
     { name: "VS Code", category: "Tools" },
     { name: "Arduino", category: "Tools" },
