@@ -4,7 +4,7 @@ const PROJECT_national_robotics_competition_2024 = {
   status: "completed",
   category: "Robotics",
   tags: ["Autonomous", "Smorphi", "Open-Loop", "Path Mapping", "Shape-Shifting"],
-  thumbnail: "resources/Pictures/national-robotics-competition-2024/cover.jpg",
+  thumbnail: "resources/Pictures/national-robotics-competition-2024/cover.png",
   date: "2024",
   summary: "1st Place (Smorphi Autonomous & Pilot Challenge) — high-speed minimalist autonomous navigation with shape-shifting robot.",
   featured: false,

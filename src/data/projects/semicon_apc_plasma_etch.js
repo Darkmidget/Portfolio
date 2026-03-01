@@ -4,7 +4,7 @@ const PROJECT_semicon_apc_plasma_etch = {
   status: "completed",
   category: "Semiconductor",
   tags: ["APC", "Plasma", "OES", "Virtual Metrology", "Machine Learning", "RIE"],
-  thumbnail: "",
+  thumbnail: "resources/Pictures/semicon_apc_plasma_etch/cover.png",
   date: "2025",
   summary: "Hybrid metrology framework linking plasma signals to wafer outcomes for closed-loop APC and reduced scrap.",
   featured: false,

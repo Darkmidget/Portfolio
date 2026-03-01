@@ -4,7 +4,7 @@ const PROJECT_delivery_robot = {
   status: "completed",
   category: "Robotics",
   tags: ["Python", "ROS", "C/C++", "Arduino", "Raspberry Pi", "LIDAR", "GPS"],
-  thumbnail: "",
+  thumbnail: "resources/Pictures/delivery-robot/cover.png",
   date: "2020",
   summary: "Autonomous delivery robot prototype demonstrating waypoint navigation, sensor fusion, and remote operation.",
   featured: true,

@@ -260,7 +260,7 @@ function renderFeaturedProjects() {
   const container = document.getElementById('featured-projects');
   if (!container) return;
 
-  const featured = PORTFOLIO_DATA.projects.filter(p => p.featured);
+  const featured = _sortByDateDesc(PORTFOLIO_DATA.projects.filter(p => p.featured));
 
   if (featured.length === 0) {
     container.innerHTML = `
@@ -282,7 +282,7 @@ function renderAllProjects() {
   const filterContainer = document.getElementById('filter-pills');
   if (!container) return;
 
-  const projects = PORTFOLIO_DATA.projects;
+  const projects = _sortByDateDesc(PORTFOLIO_DATA.projects);
 
   // Debug: log loaded project ids to help diagnose missing entries
   try {
@@ -563,6 +563,30 @@ function copyToClipboard(text) {
     document.body.removeChild(ta);
     showToast('Copied to clipboard!');
   }
+}
+
+// ─── Project Date Helpers ─────────────────
+function _projectDateValue(p) {
+  if (!p) return 0;
+  const d = p.date;
+  if (!d) return 0;
+  if (typeof d === 'number') return d;
+  if (typeof d === 'string') {
+    // Try to extract a 4-digit year first
+    const yearMatch = d.match(/(\d{4})/);
+    if (yearMatch) return parseInt(yearMatch[1], 10);
+    const ts = Date.parse(d);
+    if (!isNaN(ts)) return ts;
+  }
+  return 0;
+}
+
+function _sortByDateDesc(list) {
+  return (list || []).slice().sort((a, b) => {
+    const va = _projectDateValue(a);
+    const vb = _projectDateValue(b);
+    return vb - va;
+  });
 }
 
 // ─── Utilities ────────────────────────────

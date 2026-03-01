@@ -4,7 +4,7 @@ const PROJECT_autonomous_navigation_predictive_control = {
   status: "completed",
   category: "Robotics",
   tags: ["ROS2 Humble", "MPPI", "Model Predictive Control", "Groot2", "PyTrees", "Gazebo", "Digital Twin", "Perception", "Behavior Trees"],
-  thumbnail: "resources/Pictures/autonomous-navigation-predictive-control/cover.jpg",
+  thumbnail: "resources/Pictures/autonomous-navigation-predictive-control/cover.png",
   date: "2025",
   summary: "High-performance navigation stack using ROS2 and MPPI with behavior-tree decision logic and a Gazebo digital twin.",
   featured: false,

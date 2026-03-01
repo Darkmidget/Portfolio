@@ -4,7 +4,7 @@ const PROJECT_lg_retail_innovation = {
   status: "completed",
   category: "Retail Design",
   tags: ["Retail", "Design", "In-store", "UX", "Visual Merchandising"],
-  thumbnail: "resources/Pictures/lg-retail/cover.jpg",
+  thumbnail: "resources/Pictures/lg-retail-innovation/cover.png",
   date: "2020",
   summary: "Low-infrastructure, high-impact shelf design intervention to improve visibility and workflow for LG Foods in Singapore supermarkets.",
   featured: true,
