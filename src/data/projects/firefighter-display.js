@@ -5,7 +5,7 @@ const PROJECT_firefighter_display = {
   category: "Hardware",
   tags: ["Raspberry Pi", "Thermal Imaging", "Embedded", "AI", "Optics", "Safety", "Business", "Product", "Public Safety", "helmet"],
   thumbnail: "resources/Pictures/firefighter-display/cover.svg",
-  date: "2026",
+  date: "2025",
   summary: "A compact, retrofittable thermal heads-up display (HUD) helmet retrofit for firefighters that provides a hands-free, real-time thermal overlay in zero-visibility environments.",
   featured: true,
   links: {

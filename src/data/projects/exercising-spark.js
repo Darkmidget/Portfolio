@@ -1,11 +1,11 @@
 const PROJECT_exercising_spark = {
   id: "exercising-spark",
   title: "Exercising Spark",
-  status: "in-progress",
+  status: "completed",
   category: "Mobile App",
   tags: ["Firebase", "Google Maps", "SQLite", "WebView"],
   thumbnail: "",
-  date: "2026",
+  date: "2020",
   summary: "A community-driven mobile app that connects neighbors for fitness activities, making exercise social and local.",
   featured: true,
   links: {

@@ -5,7 +5,7 @@ const PROJECT_semicon_apc_plasma_etch = {
   category: "Semiconductor",
   tags: ["APC", "Plasma", "OES", "Virtual Metrology", "Machine Learning", "RIE"],
   thumbnail: "",
-  date: "2026",
+  date: "2025",
   summary: "Hybrid metrology framework linking plasma signals to wafer outcomes for closed-loop APC and reduced scrap.",
   featured: false,
   links: {

@@ -5,7 +5,7 @@ const PROJECT_3d_food_extruder = {
   category: "Robotics",
   tags: ["Arduino", "3D Printing", "Upcycling", "Embedded"],
   thumbnail: "",
-  date: "2024",
+  date: "2019",
   summary: "An upcycling system that converts surplus produce into printable food paste and 3D-prints custom edible shapes.",
   featured: false,
   links: {
