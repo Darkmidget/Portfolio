@@ -177,6 +177,9 @@ What did you take away from this project?"></textarea>
             Copy the generated code and paste it into the <code>projects</code> array in <code>src/data/projects.js</code>. Don't forget to add a comma after the previous entry!
           </div>
           <pre class="code-output" id="code-output">// Click "Generate Code" to create the project entry...</pre>
+          <div id="manifest-helper" style="margin-top:var(--space-4); color:var(--color-text-muted); font-size:0.95rem;">
+            <!-- populated by Generate action -->
+          </div>
         </div>
 
         <!-- Quick Reference -->
@@ -199,14 +202,14 @@ What did you take away from this project?"></textarea>
 
   <div id="footer-container"></div>
 
-  <script src="src/data/projects/delivery-robot.js"></script>
-  <script src="src/data/projects/portfolio-website.js"></script>
-  <script src="src/data/projects/trading-search.js"></script>
-  <script src="src/data/projects.js"></script>
-  <script src="src/js/app.js"></script>
   <script>
-    renderNavbar('editor');
-    renderFooter();
+    window.__onProjectsLoaded = function(){
+      renderNavbar('editor');
+      renderFooter();
+    };
+  </script>
+  <script src="src/data/projects/loader.js"></script>
+  <script>
 
     // ─── Editor Logic ────────────────────────
 
@@ -417,6 +420,22 @@ ${edContent.value}
 
       codeOutput.textContent = code;
       showToast('Code generated! Copy it to projects.js');
+
+      // Show helper command to update manifest.json using the provided Node script
+      const filename = (edId.value || 'my-project').trim() + '.js';
+      const cmd = `node tools/update-project-manifest.js ${filename}`;
+      const helper = document.getElementById('manifest-helper');
+      helper.innerHTML = `
+        <div style="display:flex;gap:8px;align-items:center;">
+          <div>To automatically add this project to the loader manifest, run:</div>
+          <code style="background:var(--color-card);padding:6px;border-radius:6px;margin-left:8px;">${cmd}</code>
+          <button class="btn btn-outline" id="copy-manifest-cmd">Copy</button>
+        </div>
+      `;
+      document.getElementById('copy-manifest-cmd').addEventListener('click', () => {
+        copyToClipboard(cmd);
+        showToast('Command copied');
+      });
     });
 
     // ─── Copy Button ──────────────────────────

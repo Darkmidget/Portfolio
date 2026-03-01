@@ -86,5 +86,6 @@ const PORTFOLIO_DATA = {
     PROJECT_delivery_robot,
     PROJECT_portfolio_website,
     PROJECT_trading_search,
+    PROJECT_firefighter_display,
   ]
 };
