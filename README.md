@@ -5,6 +5,9 @@ Hosted on GitHub Pages — no build tools, no APIs, no tokens.
 
 ---
 
+Links:
+      https://darkmidget.github.io/Portfolio/index.html
+
 ## Features
 
 - ✅ **No dependencies, no build tools** — Pure HTML, CSS, JavaScript
@@ -458,6 +461,3 @@ Edit `renderNavbar()` function in `src/js/app.js` to add custom pages.
    ```
 
 ---
-
-Links:
-      https://darkmidget.github.io/Portfolio/index.html
