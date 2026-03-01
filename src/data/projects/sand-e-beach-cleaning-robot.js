@@ -3,7 +3,7 @@ const PROJECT_sand_e_beach_cleaning_robot = {
   title: "Sand‑E — Beach Cleaning Robot",
   status: "in-progress",
   category: "Robotics",
-  tags: ["CAD", "Mechanical Design", "Electronics", "ROS 2", "Autonomy", "Embedded"],
+  tags: ["CAD", "Mechanical Design", "Electronics", "ROS2", "Autonomy", "Embedded"],
   thumbnail: "",
   date: "2025",
   summary: "A mission-ready prototype that automates beach cleaning by traversing sandy terrain and collecting debris.",
