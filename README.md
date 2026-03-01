@@ -454,13 +454,10 @@ Edit `renderNavbar()` function in `src/js/app.js` to add custom pages.
 
 3. **Your site will be live at:**
    ```
-   https://<your-username>.github.io/Portfolio
+   https://darkmidget.github.io/Portfolio
    ```
 
 ---
 
-## License
-
-MIT
 Links:
       https://darkmidget.github.io/Portfolio/index.html
