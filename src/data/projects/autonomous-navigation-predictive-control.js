@@ -2,7 +2,7 @@ const PROJECT_autonomous_navigation_predictive_control = {
   id: "autonomous-navigation-predictive-control",
   title: "Autonomous Navigation & Predictive Control",
   status: "completed",
-  category: "Robotics",
+  category: "Work / Internship",
   tags: ["ROS2 Humble", "MPPI", "Model Predictive Control", "Groot2", "PyTrees", "Gazebo", "Digital Twin", "Perception", "Behavior Trees"],
   thumbnail: "resources/Pictures/autonomous-navigation-predictive-control/cover.png",
   date: "2025",
