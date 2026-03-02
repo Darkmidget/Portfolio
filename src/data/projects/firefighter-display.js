@@ -44,9 +44,7 @@ The solution was designed for minimal disruption to existing systems and human b
 
 This project establishes a foundation for next-generation protective gear that improves mission effectiveness and survivor outcomes by providing every responder with advanced "see-through-smoke" capabilities.
 
-## Notes
-
-Prototype details, testing data, and media assets can be added to 'resources/Pictures/firefighter-display/' as needed.
+ 
   `
 };
 if (typeof window !== 'undefined') window.PROJECT_firefighter_display = PROJECT_firefighter_display;

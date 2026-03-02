@@ -47,11 +47,9 @@ This project has ended. Activities concluded in 2020.
 LendAh aims to re-circulate dormant capital into education, easing student financial burdens and stimulating economic activity. It also provides retirees with purpose and social connection through mentorship and measurable impact.
 
 ## Architecture & README Tips
-- Add an AWS architecture diagram showing: User -> Frontend (Amplify) -> API (API Gateway/Lambda) -> DynamoDB, with Bank role monitoring via IAM and CloudWatch logging. Include Cognito for user auth.
-- Emphasize the social impact: the platform addresses both stagnant capital and retiree loneliness by facilitating meaningful intergenerational relationships.
 
 ## Notes
-Place related images under resources/Pictures/lendah/ (cover, screenshots, diagrams).
+ 
   `
 };
 
