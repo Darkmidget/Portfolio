@@ -114,6 +114,8 @@ const PORTFOLIO_DATA = {
       'PROJECT_semicon_apc_plasma_etch',
       'PROJECT_lendah',
       'PROJECT_autonomous_navigation_predictive_control',
+      'PROJECT_linear_regulator_boost_converter',
+      'PROJECT_fpga_signal_processor',
       'PROJECT_national_robotics_competition_2024'
     ];
 

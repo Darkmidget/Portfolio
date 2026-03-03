@@ -12,6 +12,8 @@
     "lendah.js",
     "autonomous-navigation-predictive-control.js",
     "self-powered-iot-forest-monitoring-sensor.js"
-    ,"national-robotics-competition-2024.js"
+    ,"national-robotics-competition-2024.js",
+    "linear-regulator-boost-converter.js",
+    "fpga-signal-processor.js"
   ]
 }
