@@ -3,7 +3,7 @@ const PROJECT_firefighter_display = {
   title: "Adam & Eve — Firefighter HUD",
   status: "completed",
   category: "Hardware",
-  tags: ["Raspberry Pi", "Thermal Imaging", "Embedded", "AI", "Optics", "3D Printing", "Safety", "Business", "Product", "Public Safety", "helmet"],
+  tags: ["Raspberry Pi", "Thermal Imaging", "Embedded", "AI", "Optics", "3D Printing", "Safety", "Business", "Product", "Public Safety", "helmet", "Electrical", "Mechanical"],
   thumbnail: "resources/Pictures/firefighter-display/cover.png",
   date: "2025",
   summary: "A compact, retrofittable thermal heads-up display (HUD) helmet retrofit for firefighters that provides a hands-free, real-time thermal overlay in zero-visibility environments.",

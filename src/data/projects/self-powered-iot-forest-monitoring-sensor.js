@@ -10,7 +10,9 @@ const PROJECT_self_powered_iot_forest_monitoring_sensor = {
     "Materials",
     "3D Printing",
     "Composite",
-    "PETG"
+    "PETG",
+    "Electrical",
+    "Mechanical"
   ],
   thumbnail: "resources/Pictures/self-powered-iot-forest-monitoring-sensor/cover.png",
   date: "2025",
