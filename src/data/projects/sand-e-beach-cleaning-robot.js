@@ -101,7 +101,6 @@ Each phase included measurable acceptance criteria (e.g., 80% debris pickup succ
 
 Below is a concise summary of how motors and electrical subsystems were specified, with representative example values used during prototyping.
 
-- **Drive motors (example configuration):** Brushless DC (BLDC) hub-mounted motors with planetary gearbox.
 - **Drive motors (actual prototype):** 12 V DC 795-series motors fitted with a 3-stage planetary gearbox (total reduction ~263:1).
   - Motor type: 12 V DC hobby 795 motor (high-reduction gearing used for torque multiplication)
   - Gear reduction: 263:1 (3-stage planetary)
