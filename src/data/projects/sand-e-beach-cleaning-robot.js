@@ -80,10 +80,10 @@ The project was featured in the **Straits Times** and received recognition from 
 ### 📋 **Implementation Timeline**
 | Milestone | Status | Expected Delivery |
 |-----------|--------|-------------------|
-| ROS 2 Navigation Stack | 🟡 In Progress | Q1 2025 |
-| Autonomous Obstacle Avoidance | 🟡 In Progress | Q2 2025 |
-| Debris Identification ML Model | ⬜ Planned | Q2 2025 |
-| Field Pilot Deployments | ⬜ Planned | Q3 2025 |
+| ROS 2 Navigation Stack | 🟡 In Progress | Q1 2026 |
+| Autonomous Obstacle Avoidance | 🟡 In Progress | Q2 2026 |
+| Debris Identification ML Model | ⬜ Planned | Q2 2026 |
+| Field Pilot Deployments | ⬜ Planned | Q3 2026 |
 
 ## **Planning Process**
 
@@ -194,10 +194,10 @@ These tests form a feedback loop that informs iterative changes to gearing, whee
 - **Team Development**: Trained multiple team members in robotics workflows, CAD, electronics, and autonomous systems.
 
 ### **Deliverables**
-✅ Functional robot prototype capable of traversing sandy terrain  \\
-✅ Field-tested at Pasir Ris Beach with successful public demonstration  \\
-✅ Press coverage and institutional recognition  \\
-✅ Technical roadmap for full autonomy and scaling to additional deployments  \\
+✅ Functional robot prototype capable of traversing sandy terrain  \\ 
+✅ Field-tested at Pasir Ris Beach with successful public demonstration  \\ 
+✅ Press coverage and institutional recognition  \\ 
+✅ Technical roadmap for full autonomy and scaling to additional deployments  \\ 
 
 ## Key Technical Challenges to Overcome
 
