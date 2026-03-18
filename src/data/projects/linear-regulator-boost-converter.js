@@ -7,7 +7,7 @@ const PROJECT_linear_regulator_boost_converter = {
   thumbnail: "resources/Pictures/linear-regulator-boost-converter/cover.png",
   date: "2026",
   summary: "Design, simulate and build a linear voltage regulator and a boost converter for a compact power supply. Focus on stability, efficiency and PCB implementation.",
-  featured: false,
+  featured: true,
   links: {
     github: "",
     demo: "",
