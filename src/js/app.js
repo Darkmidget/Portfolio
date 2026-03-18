@@ -212,7 +212,7 @@ function parseMarkdown(md) {
     block = block.trim();
     if (!block) return '';
     // Don't wrap blocks that start with HTML tags
-    if (/^<(h[1-6]|ul|ol|li|pre|blockquote|hr|img|div|table)/.test(block)) return block;
+    if (/^<(h[1-6]|ul|ol|li|pre|blockquote|hr|img|div|table|video)/.test(block)) return block;
     return `<p>${block.replace(/\n/g, '<br>')}</p>`;
   }).join('\n');
 
