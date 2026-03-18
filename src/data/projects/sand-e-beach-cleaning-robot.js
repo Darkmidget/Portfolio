@@ -19,7 +19,7 @@ const PROJECT_sand_e_beach_cleaning_robot = {
 Sand‑E is currently undergoing a strategic evolution, transitioning from a proven, **remote-controlled (RC) prototype** to a fully **autonomous mission-ready system**. The project is structured in two distinct phases:
 
 1.  **Phase 1 (Completed Jan 2025):** Development of the robust mechanical chassis and teleoperated control system. This version achieved successful field testing and press coverage.
-2.  **Phase 2 (Active Development):** Integration of high-level autonomy, sensor fusion (LiDAR/IMU), and ROS 2-based navigation.
+2.  **Phase 2 (Active Development):** Transitioning to full autonomy using **GPS/IMU sensor fusion**, high-performance **Intel i9 compute**, and a **ROS 2** navigation stack for systematic grid-based beach cleaning.
 
 ![Sand-E Robot Overview](resources/Pictures/sand-e/overview.png)
 
@@ -114,22 +114,36 @@ The RC version was rigorously tested in sandbox environments and on-site at Pasi
 
 ## **Phase 2: Transition to Autonomy (Active Development)**
 
-Currently, we are upgrading the proven Phase 1 chassis into a fully autonomous system. This involves a modular upgrade of the electronics stack to include perception and high-level compute.
+The Phase 2 upgrade focuses on evolving the proven Phase 1 chassis into a high-performance autonomous system. This involves a complete overhaul of the electronics and software stack to enable GPS-guided navigation and industrial-grade reliability.
 
-### **Autonomy Upgrades**
-- **Hardware Integration:** Mounting systems for **LiDAR** and **IMU** units to enable environmental awareness.
-- **Onboard Compute:** Transitioning control from a simple RC receiver to an embedded processor (Raspberry Pi/CPU) for real-time navigation.
-- **Software Stack:** Developing a **ROS 2-based** navigation stack with SLAM and path planning capabilities.
-- **Sensing Redundancy:** Sensor fusion (LiDAR + IMU) improves robustness at the cost of integration complexity. We prioritized a minimal viable stack for initial pilots.
+![Phase 2 Electronics Stack](resources/Pictures/sand-e/phase2_electronics.png)
+*The upgraded Phase 2 electronics stack featuring high-performance compute and advanced sensor arrays.*
+
+### **High-Performance Compute & ROS 2**
+*   **Onboard Processor:** Transitioning from simple microcontrollers to a **Mini PC (Intel Core i9)**. This provides the necessary throughput for real-time sensor processing and ROS 2 orchestration.
+*   **Software Stack:** Full implementation of **ROS 2**, enabling modular node-based communication for navigation, safety, and debris collection logic.
+
+### **Navigation & Sensor Fusion**
+*   **Localization:** Utilizing a combination of **Multi-constellation GNSS** and **IMU** data.
+*   **Sensor Fusion:** Implementing sensor fusion algorithms to merge GPS global positioning with IMU inertial data, ensuring stable localization even in vast, featureless beach environments.
+*   **Safety Sensing:** Integrating a **LiDAR** unit for basic obstacle detection and safety, ensuring the robot pauses operation if humans or animals enter its immediate proximity.
+*   **Mission Strategy:** Executing an **aerial sweep (grid-based)** pattern based on map coordinates to ensure 100% coverage of the target beach area.
+
+### **Power Systems & Reliability**
+*   **Energy Management:** Upgrading to high-density battery packs with calculated power budgets to maximize "lifetime per charge" for long-duration autonomous missions.
+*   **Mechanical Hardening:** Iterative design improvements to minimize sand ingress into critical gears and linkages—reducing the need for frequent "deep maintenance."
+*   **Autonomy Goal:** The end-goal is a "set-and-forget" system that minimizes human intervention, both in operation and in maintenance.
 
 ### 🚀 **Current Roadmap**
-We are transitioning from Phase 1's teleoperation to Phase 2's full autonomy.
+We are rapidly advancing toward the first fully autonomous field trial.
 
 | Milestone | Status | Expected Delivery |
 |-----------|--------|-------------------|
-| ROS 2 Navigation Stack | 🟡 In Progress | Q1 2026 |
-| Autonomous Obstacle Avoidance | 🟡 In Progress | Q2 2026 |
-| Field Pilot Deployments | ⬜ Planned | Q3 2026 |
+| i9 Compute & ROS 2 Setup | ✅ Completed | Feb 2026 |
+| GPS + IMU Sensor Fusion | 🟡 In Progress | Q1 2026 |
+| Autonomous Aerial Sweep Pattern | 🟡 In Progress | Q2 2026 |
+| High-Capacity Battery Integration | ⬜ Planned | Q2 2026 |
+| Full Autonomous Field Pilot | ⬜ Planned | Q3 2026 |
 
 ### 🎯 **Pilot Testing & Real-World Validation**
 - Planning systematic pilot deployments at partner beaches to:
@@ -168,9 +182,13 @@ We are transitioning from Phase 1's teleoperation to Phase 2's full autonomy.
 > - Collecting small debris while filtering out shifting sand is mechanically complex in unstructured environments.
 > - **Solution**: Developed a modular mesh-based conveyor system and optimized the sweeper geometry to maximize debris lift while allowing sand to pass through.
 
-> **Challenge 3: Limited Computing Resources**
-> - Field deployments require power-efficient computing for onboard autonomy.
-> - **Solution**: Optimized navigation and control algorithms for edge deployment on embedded hardware (CPU/Arduino).
+> **Challenge 3: Transitioning to High-Level Compute**
+> - Moving from RC to full autonomy requires significantly more power and processing capability.
+> - **Solution**: Integrated a high-performance **Intel i9 Mini PC** and transitioned to **ROS 2**, allowing for complex sensor fusion and grid-based path planning while maintaining modularity.
+
+> **Challenge 4: Sand Ingress and Maintenance**
+> - Fine sand particles pose a constant threat to mechanical linkages and gearboxes during extended autonomous runs.
+> - **Solution**: Redesigning seals and adopting "low-maintenance" mechanical components to minimize the frequency of robot deep maintenance and ensure reliable autonomous operation.
 
 ## Acknowledgements
 - **Polymate** — Technical mentorship.
