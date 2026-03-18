@@ -7,7 +7,7 @@ const PROJECT_firefighter_display = {
   thumbnail: "resources/Pictures/firefighter-display/cover.png",
   date: "2025",
   summary: "A compact, retrofittable thermal heads-up display (HUD) helmet retrofit for firefighters that provides a hands-free, real-time thermal overlay in zero-visibility environments.",
-  featured: true,
+  featured: false,
   links: {
     github: "",
     demo: "",

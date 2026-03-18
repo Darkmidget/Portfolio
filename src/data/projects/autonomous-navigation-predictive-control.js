@@ -3,37 +3,46 @@ const PROJECT_autonomous_navigation_predictive_control = {
   title: "Autonomous Navigation & Predictive Control",
   status: "completed",
   category: "Work / Internship",
-  tags: ["ROS2 Humble", "MPPI", "Model Predictive Control", "Groot2", "PyTrees", "Gazebo", "Digital Twin", "Perception", "Behavior Trees"],
+  tags: ["ROS2 Humble", "MPPI", "Model Predictive Control", "Groot2", "PyTrees", "Gazebo", "Digital Twin", "Perception", "Behavior Trees", "3D Point Cloud Processing", "Semantic Mapping", "Frontier Navigation", "Hardware Integration"],
   thumbnail: "resources/Pictures/autonomous-navigation-predictive-control/cover.png",
   date: "2025",
   summary: "High-performance navigation stack using ROS2 and MPPI with behavior-tree decision logic and a Gazebo digital twin.",
-  featured: false,
+  featured: true,
   links: {
     github: "",
     demo: "",
     other: ""
   },
   content: `
-## Overview
-This project was completed as an internship and independent project focused on building a high-performance autonomous navigation stack.
+## The Mission: Redefining Early-Stage Robotics at Griffin Labs
 
-- Optimized Navigation Stack: Developed a high-performance navigation pipeline using **ROS2 Humble** and **MPPI (Model Predictive Path Integral)** controllers to produce smooth, dynamically-feasible trajectories.
-- High-Speed Tracking: Achieved precise trajectory tracking and agile dynamic obstacle avoidance, improving reliability in fluid environments.
+My journey began as an R&D Intern at **Griffin Labs**, stepping into a project where the robot was still on the drawing board. Tasked with developing a high-performance autonomy stack for a specialized (and currently confidential) application, I learned that in cutting-edge robotics, you don’t wait for hardware—you build the future in parallel.
 
-## Intelligent Autonomy & Decision Logic
+### 1. The Digital Twin: Bridging the Prototype Gap
+With the physical hardware still being assembled, I initiated a **simulation-first development strategy**. I built a high-fidelity **Gazebo Digital Twin**, integrating raw STL sketches from the hardware team before the first bolt was even tightened.
+- **Key Insight**: Simulation isn't just for testing; it’s a design tool. By mapping out the **IMU and sensor bridges** virtually, I was able to tell the hardware team exactly where the sensors needed to be mounted for optimal feedback, accelerating our overall development timeline by months.
 
-- Behavior Tree Architecture: Engineered complex decision-making logic using **Groot2** and **PyTrees**, moving beyond simple state machines for more robust robot behavior.
-- Frontier Exploration: Integrated autonomous self-mapping capabilities so the robot can explore and digitize unknown areas without manual intervention.
+### 2. Giving the Robot "Eyes": Perception & Frontier Autonomy
+Once the virtual environment was stable, the goal was clear: **Total Autonomy.** I implemented a **Frontier Exploration** system that allowed the robot to navigate and map confined, unknown environments without human intervention.
+- **Semantic Intelligence**: I integrated a perception pipeline that leveraged **cloud-based semantic data**, allowing the robot to not just "see" obstacles, but to **understand context**. It could identify specific work zones and determine exactly how to orient itself for complex manipulation tasks.
 
-## Digital Twin & Perception
+### 3. Solving the Hard Problems: 3D Point Cloud Manipulation
+One of my most significant technical challenges was developing a way for the robot to work with **inner surfaces**. I engineered a solution that fused **3D Point Cloud scans** with semantic centroids:
+- **Centroid-Based Tracing**: I developed an algorithm that meshed point clouds and identified "inner surfaces" by filtering surface normals that pointed toward the semantic centroid.
+- **Precision Pathing**: This allowed the robotic arms to automatically generate and follow tracing paths in spaces too narrow for manual programming.
 
-- High-Fidelity Simulation: Built a Gazebo simulation environment (digital twin) to validate kinematics and sensor fusion—accelerating development and reducing hardware risk.
-- 3D Spatial Awareness: Developed perception pipelines for 3D object identification, enabling landmark-based self-alignment and high-precision task execution.
+### 4. The Shift to Reality: Reliability 
+The most valuable part of my internship came when I transitioned my "perfect" simulation code onto physical hardware. I quickly realized that a simulation that works 100% of the time often leads to hardware that works only 50%.
+- **The Mentor's Challenge**: My senior developer, **Charan** & **Roy** , challenged me to move beyond "functional" code to **"reliable" code**. He emphasized that in professional robotics, **Safety, predictability and repeatability** are everything.
+- **Stress-Testing the Real World**: I spent the latter half of my internship recreating edge cases and debugging the hardware-software bridge to ensure the robot could reliably navigate tight, narrow spaces (like the test toilet environments) under any condition.
 
-## Tech
+### Current State & Key Learnings
+- **The Power of Simulation-Driven Design**: Reducing hardware risk via early digital prototyping.
+- **The Reliability Mindset**: Learning that "working once" is just the start; "working a thousand times" is the goal.
+- **Confidential Reality**: While full media and specific technical details are under NDA until **April 2026**, the algorithms I developed are now integrated into Griffin Labs' core autonomy stack.
 
-ROS2 Humble, MPPI / MPC, PyTrees, Groot2, Gazebo, Python, C++
-
+## Tech Stack
+**ROS2 Humble, Gazebo, Python, MPPI / MPC, 3D Point Cloud Processing, Semantic Mapping, Behavior Trees (Groot2/PyTrees)**
 `};
 if (typeof window !== 'undefined') window.PROJECT_autonomous_navigation_predictive_control = PROJECT_autonomous_navigation_predictive_control;
 

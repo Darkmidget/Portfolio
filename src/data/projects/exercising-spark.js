@@ -7,7 +7,7 @@ const PROJECT_exercising_spark = {
   thumbnail: "",
   date: "2020",
   summary: "A community-driven mobile app that connects neighbors for fitness activities, making exercise social and local.",
-  featured: true,
+  featured: false,
   links: {
     github: "",
     demo: "",

@@ -7,7 +7,7 @@ const PROJECT_portfolio_website = {
   thumbnail: "",
   date: "2025",
   summary: "Personal portfolio website to showcase projects and track development progress. Built with vanilla web technologies, hosted on GitHub Pages.",
-  featured: true,
+  featured: false,
   links: {
     github: "https://github.com/Darkmidget/Portfolio",
     demo: "",
