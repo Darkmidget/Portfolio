@@ -61,7 +61,7 @@ After extensive testing and refinement, we developed our final hardware prototyp
 ![3D Printed Prototype](resources/Pictures/firefighter-display/3d_printed_prototype.png)
 ![Add-on Prototype for Existing Gas Mask](resources/Pictures/firefighter-display/add_on_prototype_for_existing_gas_mask.png)
 
-We presented our finalized prototype at the competition and proudly **won the award**! 
+We presented our finalized prototype at the competition and proudly **won the "Best Prototype" award**! 
 
 ## Technical Implementation
 
@@ -77,7 +77,7 @@ We presented our finalized prototype at the competition and proudly **won the aw
 
 - **Detection Accuracy**: Achieved an 83% success rate in object/person detection using the Intersection over Union (IoU) method.
 - **Operational Durability**: Stable performance for 35–40 minutes before heat-induced latency, matching standard firefighting work-rest cycles.
-- **Visual Clarity**: Readability tests with 60 participants confirmed high legibility in low-visibility conditions.
+- **Visual Clarity**: Readability tests with 30 participants confirmed high legibility in low-visibility conditions.
 - **Ergonomics**: Limited visual occlusion to ensure critical thermal data is accessible without compromising environmental awareness.
 
 ## Cost & Market Penetration
