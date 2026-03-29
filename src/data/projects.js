@@ -116,7 +116,8 @@ const PORTFOLIO_DATA = {
       'PROJECT_autonomous_navigation_predictive_control',
       'PROJECT_linear_regulator_boost_converter',
       'PROJECT_fpga_signal_processor',
-      'PROJECT_national_robotics_competition_2024'
+      'PROJECT_national_robotics_competition_2024',
+      'PROJECT_tunable_gelatin_dra'
     ];
 
     let list = wellKnown.map(tryGet).filter(p => p && typeof p === 'object');
