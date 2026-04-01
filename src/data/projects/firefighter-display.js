@@ -61,6 +61,27 @@ After extensive testing and refinement, we developed our final hardware prototyp
 ![3D Printed Prototype](resources/Pictures/firefighter-display/3d_printed_prototype.png)
 ![Add-on Prototype for Existing Gas Mask](resources/Pictures/firefighter-display/add_on_prototype_for_existing_gas_mask.png)
 
+## Thermal Visual Effectiveness
+
+The following videos demonstrate the real-time thermal overlay within the gas mask, showcasing the clarity and responsiveness of the HUD even in challenging visibility conditions.
+
+<div class="video-grid">
+  <div class="video-item">
+    <video controls loop muted>
+      <source src="resources/Videos/firefighter-display/demo_firefighter_0.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-caption">HUD Thermal Visual Demo 1</div>
+  </div>
+  <div class="video-item">
+    <video controls loop muted>
+      <source src="resources/Videos/firefighter-display/demo_firefighter.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-caption">HUD Thermal Visual Demo 2</div>
+  </div>
+</div>
+
 We presented our finalized prototype at the competition and proudly **won the "Best Prototype" award**! 
 
 ## Technical Implementation
