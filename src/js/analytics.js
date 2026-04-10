@@ -223,6 +223,137 @@ class PortfolioAnalytics {
     return aggregated;
   }
 
+  // ─── GitHub Gist Aggregation (Project Popularity) ───
+
+  static aggregateProjectViews() {
+    const events = this.exportEvents();
+    const projectViews = {};
+
+    events.forEach((e) => {
+      if (e.name === 'page_view') {
+        const page = e.data.page;
+        // Extract project ID from project.html?id=delivery-robot
+        const projectMatch = page.match(/project\.html\?id=([^&]+)/);
+        if (projectMatch) {
+          const projectId = projectMatch[1];
+          projectViews[projectId] = (projectViews[projectId] || 0) + 1;
+        }
+      }
+    });
+
+    return projectViews;
+  }
+
+  static async pushToGist(gistId, token) {
+    try {
+      // Get current aggregated data from this browser
+      const currentData = this.aggregateProjectViews();
+
+      // Fetch existing Gist data
+      const gistResponse = await fetch(`https://api.github.com/gists/${gistId}`, {
+        headers: {
+          'Authorization': `token ${token}`,
+          'Accept': 'application/vnd.github.v3+json',
+        },
+      });
+
+      if (!gistResponse.ok) {
+        throw new Error(`GitHub API error: ${gistResponse.status} ${gistResponse.statusText}`);
+      }
+
+      const gistData = await gistResponse.json();
+
+      // Parse existing counts from the Gist file
+      let existingCounts = {};
+      if (gistData.files && gistData.files['portfolio-analytics.json']) {
+        const content = gistData.files['portfolio-analytics.json'].content;
+        existingCounts = JSON.parse(content);
+      }
+
+      // Merge: add new counts to existing (cumulative)
+      const merged = { ...existingCounts };
+      Object.keys(currentData).forEach((projectId) => {
+        merged[projectId] = (merged[projectId] || 0) + currentData[projectId];
+      });
+
+      // Update the Gist
+      const updateResponse = await fetch(`https://api.github.com/gists/${gistId}`, {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `token ${token}`,
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          files: {
+            'portfolio-analytics.json': {
+              content: JSON.stringify(merged, null, 2),
+            },
+          },
+        }),
+      });
+
+      if (!updateResponse.ok) {
+        throw new Error(`Failed to update Gist: ${updateResponse.status}`);
+      }
+
+      return {
+        success: true,
+        message: 'Data synced to GitHub successfully',
+        projectViews: merged,
+        timestamp: new Date().toISOString(),
+      };
+    } catch (error) {
+      console.error('[Analytics] Gist push failed:', error);
+      return {
+        success: false,
+        message: `Sync failed: ${error.message}`,
+        error: error.message,
+      };
+    }
+  }
+
+  static async syncToGist(gistId, token) {
+    return this.pushToGist(gistId, token);
+  }
+
+  static async fetchFromGist(gistId) {
+    try {
+      const response = await fetch(`https://api.github.com/gists/${gistId}`, {
+        headers: {
+          'Accept': 'application/vnd.github.v3+json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`GitHub API error: ${response.status}`);
+      }
+
+      const gistData = await response.json();
+
+      if (gistData.files && gistData.files['portfolio-analytics.json']) {
+        const content = gistData.files['portfolio-analytics.json'].content;
+        return {
+          success: true,
+          projectViews: JSON.parse(content),
+          timestamp: gistData.updated_at,
+        };
+      }
+
+      return {
+        success: false,
+        message: 'No analytics data found in Gist',
+      };
+    } catch (error) {
+      console.error('[Analytics] Gist fetch failed:', error);
+      return {
+        success: false,
+        message: `Fetch failed: ${error.message}`,
+        error: error.message,
+      };
+    }
+  }
+
   // Enable dev mode for local testing
   static enableDevMode() {
     localStorage.setItem('portfolio_analytics_dev', 'true');

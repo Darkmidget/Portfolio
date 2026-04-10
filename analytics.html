@@ -233,6 +233,8 @@
         <!-- Controls -->
         <div class="analytics-controls">
           <button id="btn-refresh">🔄 Refresh</button>
+          <button id="btn-github-sync">☁️ Sync to GitHub</button>
+          <button id="btn-github-fetch">⬇️ Fetch from GitHub</button>
           <button id="btn-export">💾 Export JSON</button>
           <button id="btn-share">📤 Share on GitHub</button>
           <button id="btn-clear" class="danger">🗑️ Clear All Data</button>
@@ -259,6 +261,48 @@
             <div class="analytics-card-label">Queries</div>
             <div class="analytics-card-value" id="stat-searches">0</div>
             <div class="analytics-card-detail">Search queries</div>
+          </div>
+        </div>
+
+        <!-- GitHub Sync Setup -->
+        <div class="analytics-section">
+          <h2 class="analytics-section-title">☁️ GitHub Integration (Project Popularity)</h2>
+          <div class="analytics-export-area" style="margin-top: 0;">
+            <p style="color: var(--color-text-muted); margin-bottom: var(--space-4);">
+              Track aggregate project popularity across all visitors by syncing anonymized view counts to a GitHub Gist. 
+              Your local visitor data stays private and never leaves their browser.
+            </p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-4);">
+              <input type="text" id="gist-id-input" placeholder="GitHub Gist ID" style="padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-bg); color: var(--color-text);">
+              <input type="password" id="gist-token-input" placeholder="GitHub Personal Access Token" style="padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-bg); color: var(--color-text);">
+            </div>
+
+            <div id="github-sync-status" style="padding: var(--space-3); margin-bottom: var(--space-4); border-radius: var(--radius-md); display: none;"></div>
+
+            <details>
+              <summary style="cursor: pointer; color: var(--color-primary); font-weight: 600; margin-bottom: var(--space-4);">
+                📋 How to set up GitHub sync (click to expand)
+              </summary>
+              <div style="padding: var(--space-4); background: var(--color-bg); border-radius: var(--radius-md); margin-top: var(--space-3);">
+                <ol style="margin: 0; padding-left: var(--space-6); color: var(--color-text-muted); line-height: 1.8;">
+                  <li><strong>Create a GitHub Gist:</strong> Go to <a href="https://gist.github.com" target="_blank" style="color: var(--color-primary);">https://gist.github.com</a>, create a new gist named <code style="background: var(--color-card); padding: 2px 6px; border-radius: 3px;">portfolio-analytics.json</code> with empty content <code style="background: var(--color-card); padding: 2px 6px; border-radius: 3px;">{}</code></li>
+                  <li><strong>Get Gist ID:</strong> Copy the ID from the URL (after /gist.github.com/username/)</li>
+                  <li><strong>Create Token:</strong> Go to GitHub Settings → Developer Settings → Personal Access Tokens → Generate new token. Grant <code style="background: var(--color-card); padding: 2px 6px; border-radius: 3px;">gist</code> scope only.</li>
+                  <li><strong>Enter above:</strong> Paste your Gist ID and token, then click "Sync to GitHub"</li>
+                  <li><strong>View results:</strong> After syncing, click "Fetch from GitHub" to see aggregated project popularity</li>
+                </ol>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- Project Popularity (from GitHub) -->
+        <div class="analytics-section">
+          <h2 class="analytics-section-title">📊 Project Popularity (Aggregate)</h2>
+          <div id="analytics-popularity" class="analytics-list"></div>
+          <div style="font-size: 0.85rem; color: var(--color-text-muted); margin-top: var(--space-3); text-align: center;">
+            <span id="popularity-last-update"></span>
           </div>
         </div>
 
@@ -391,6 +435,85 @@
       alert('Analytics refreshed!');
     });
 
+    // GitHub Sync Handler
+    document.getElementById('btn-github-sync').addEventListener('click', async () => {
+      const gistId = document.getElementById('gist-id-input').value.trim();
+      const token = document.getElementById('gist-token-input').value.trim();
+      const statusDiv = document.getElementById('github-sync-status');
+
+      if (!gistId || !token) {
+        showStatus('❌ Please enter both Gist ID and GitHub token', 'warning', statusDiv);
+        return;
+      }
+
+      showStatus('⏳ Syncing data to GitHub...', 'info', statusDiv);
+      
+      const result = await PortfolioAnalytics.syncToGist(gistId, token);
+      
+      if (result.success) {
+        showStatus(`✓ Synced successfully! ${Object.keys(result.projectViews).length} projects tracked. Last update: ${new Date(result.timestamp).toLocaleString()}`, 'success', statusDiv);
+        // Store Gist ID for next time (not the token)
+        localStorage.setItem('portfolio_gist_id', gistId);
+      } else {
+        showStatus(`❌ ${result.message}`, 'warning', statusDiv);
+      }
+    });
+
+    // GitHub Fetch Handler
+    document.getElementById('btn-github-fetch').addEventListener('click', async () => {
+      let gistId = document.getElementById('gist-id-input').value.trim();
+      
+      // If not provided, try to retrieve from localStorage
+      if (!gistId) {
+        gistId = localStorage.getItem('portfolio_gist_id');
+      }
+
+      if (!gistId) {
+        alert('❌ Please enter your Gist ID to fetch data');
+        return;
+      }
+
+      const popularityContainer = document.getElementById('analytics-popularity');
+      popularityContainer.innerHTML = '<div class="analytics-empty"><p>⏳ Loading project popularity data...</p></div>';
+      
+      const result = await PortfolioAnalytics.fetchFromGist(gistId);
+      
+      if (result.success) {
+        const projectViews = result.projectViews;
+        if (Object.keys(projectViews).length === 0) {
+          popularityContainer.innerHTML = '<div class="analytics-empty"><p>No popularity data yet. Sync your data to GitHub first.</p></div>';
+        } else {
+          const sorted = Object.entries(projectViews).sort((a, b) => b[1] - a[1]);
+          const totalViews = Object.values(projectViews).reduce((a, b) => a + b, 0);
+          
+          popularityContainer.innerHTML = sorted.map(([projectId, count]) => {
+            const percentage = ((count / totalViews) * 100).toFixed(1);
+            return `
+              <div class="analytics-list-item">
+                <div class="analytics-list-item-label">${projectId}</div>
+                <div style="text-align: right;">
+                  <div class="analytics-list-item-value">${count} view${count !== 1 ? 's' : ''}</div>
+                  <div style="font-size: 0.8rem; color: var(--color-text-muted);">${percentage}% of total</div>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          // Update last sync time
+          document.getElementById('popularity-last-update').textContent = 
+            `Last updated: ${new Date(result.timestamp).toLocaleString()}`;
+        }
+      } else {
+        popularityContainer.innerHTML = `<div class="analytics-empty"><p>❌ ${result.message}</p></div>`;
+      }
+    });
+
+    function showStatus(message, type, element) {
+      element.textContent = message;
+      element.className = `status-badge ${type}`;
+      element.style.display = 'block';
+    }
+
     document.getElementById('btn-export').addEventListener('click', () => {
       const aggregated = PortfolioAnalytics.exportAggregated();
       const dataStr = JSON.stringify(aggregated, null, 2);
@@ -431,6 +554,12 @@
 
     // Initial load
     loadAndDisplayAnalytics();
+
+    // Restore Gist ID from localStorage if available
+    const savedGistId = localStorage.getItem('portfolio_gist_id');
+    if (savedGistId) {
+      document.getElementById('gist-id-input').value = savedGistId;
+    }
   </script>
 </body>
 </html>
