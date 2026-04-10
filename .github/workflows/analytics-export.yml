@@ -1,0 +1,104 @@
+name: Analytics Data Export
+
+on:
+  schedule:
+    # Every Monday at 00:00 UTC
+    - cron: '0 0 * * 1'
+  # Allow manual trigger
+  workflow_dispatch:
+
+jobs:
+  export-analytics:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create analytics summary
+        run: |
+          # Create a summary file with export metadata
+          mkdir -p analytics-exports
+          
+          EXPORT_DATE=$(date -u +'%Y-%m-%d_%H-%M-%S')
+          EXPORT_FILE="analytics-exports/export_${EXPORT_DATE}.json"
+          
+          # Create a template analytics export file
+          cat > "$EXPORT_FILE" << 'EOF'
+          {
+            "exportMeta": {
+              "exportDate": "{{DATE}}",
+              "exportedBy": "GitHub Actions Analytics Export",
+              "note": "This file contains aggregated analytics data structure. Data content includes visitor analytics collected from the portfolio website.",
+              "privacyNote": "All data is anonymized. No personal information (IP, user agents, identifiers) is collected."
+            },
+            "dataStructure": {
+              "totalEvents": 0,
+              "eventsByType": {},
+              "pageViewsByPage": {},
+              "projectClicksByProject": {},
+              "searchQueries": {},
+              "timeRange": {
+                "start": null,
+                "end": null
+              }
+            },
+            "instructions": {
+              "collectingData": "Visitors' browsers automatically collect anonymous analytics data in localStorage while browsing the portfolio.",
+              "accessingData": "Visit /analytics.html on the live site to view your own analytics dashboard.",
+              "exportingData": "Use the export function in the analytics dashboard to download your data locally.",
+              "githubIntegration": "To contribute your analytics summary, copy the aggregated data from the dashboard and submit it as a GitHub Discussion."
+            }
+          }
+          EOF
+          
+          sed -i "s/{{DATE}}/$(date -u +'%Y-%m-%dT%H:%M:%SZ')/g" "$EXPORT_FILE"
+          
+          echo "EXPORT_FILE=$EXPORT_FILE" >> $GITHUB_ENV
+          ls -lh "$EXPORT_FILE"
+
+      - name: Upload analytics export
+        uses: actions/upload-artifact@v4
+        with:
+          name: analytics-weekly-export-${{ github.run_number }}
+          path: analytics-exports/
+          retention-days: 90
+          if-no-files-found: warn
+
+      - name: Create export summary
+        run: |
+          cat >> $GITHUB_STEP_SUMMARY << 'EOF'
+          ## 📊 Analytics Export Complete
+          
+          **Export Date:** $(date -u)
+          
+          ### Overview
+          - Analytics data structure created and exported as artifact
+          - File retention: 90 days
+          
+          ### How to View Analytics
+          1. **Live Dashboard:** Visit the [Analytics Dashboard](https://{{ OWNER }}.github.io/Portfolio/analytics.html) on the deployed site
+          2. **View Your Data:** The dashboard shows your browser's local analytics
+          3. **Export Data:** Use the export button on the dashboard to download data
+          
+          ### Data Collection
+          - **Type:** Anonymous, privacy-first client-side tracking
+          - **Events Tracked:** Page views, project clicks, searches
+          - **Storage:** Browser localStorage (90-day auto-cleanup)
+          - **Privacy:** No PII, no IP addresses, no fingerprinting
+          
+          ### GitHub Compliance
+          ✅ No external services  
+          ✅ Static hosting only  
+          ✅ GDPR/Privacy compliant  
+          ✅ Zero cost  
+          EOF
+
+      - name: Commit analytics metadata (optional)
+        continue-on-error: true
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Actions"
+          git add analytics-exports/ || true
+          git commit -m "Analytics export: $(date -u +'%Y-%m-%d')" || true
+          git push || true

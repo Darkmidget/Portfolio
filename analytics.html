@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics Dashboard | Vincent Ho</title>
+  <meta name="description" content="View your anonymous portfolio analytics — page views, project popularity, and search queries.">
+  <link rel="stylesheet" href="src/css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Analytics Dashboard Styles */
+    .analytics-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-8) var(--space-4);
+    }
+
+    .analytics-header {
+      margin-bottom: var(--space-8);
+      text-align: center;
+    }
+
+    .analytics-header h1 {
+      margin-bottom: var(--space-2);
+    }
+
+    .analytics-header p {
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-6);
+    }
+
+    .analytics-controls {
+      display: flex;
+      gap: var(--space-4);
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: var(--space-8);
+    }
+
+    .analytics-controls button {
+      padding: var(--space-3) var(--space-6);
+      border: 1px solid var(--color-border);
+      background: var(--color-card);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .analytics-controls button:hover {
+      background: var(--color-bg);
+      border-color: var(--color-primary);
+    }
+
+    .analytics-controls button.danger:hover {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: #ef4444;
+    }
+
+    .analytics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+
+    .analytics-card {
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .analytics-card-label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-3);
+      font-weight: 600;
+    }
+
+    .analytics-card-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: var(--space-3);
+    }
+
+    .analytics-card-detail {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+    }
+
+    .analytics-section {
+      margin-bottom: var(--space-8);
+    }
+
+    .analytics-section-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-3);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .analytics-list {
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .analytics-list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-4) var(--space-6);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .analytics-list-item:last-child {
+      border-bottom: none;
+    }
+
+    .analytics-list-item-label {
+      flex: 1;
+      color: var(--color-text);
+    }
+
+    .analytics-list-item-value {
+      font-weight: 600;
+      color: var(--color-primary);
+      min-width: 60px;
+      text-align: right;
+    }
+
+    .analytics-empty {
+      text-align: center;
+      padding: var(--space-8);
+      color: var(--color-text-muted);
+    }
+
+    .analytics-empty p {
+      margin-bottom: var(--space-3);
+    }
+
+    .analytics-export-area {
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin-top: var(--space-4);
+    }
+
+    .analytics-export-area h3 {
+      margin-bottom: var(--space-3);
+      font-size: 1rem;
+    }
+
+    .analytics-code {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: var(--space-3);
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-md);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .status-badge.success {
+      background: rgba(34, 197, 94, 0.1);
+      color: #22c55e;
+    }
+
+    .status-badge.warning {
+      background: rgba(234, 179, 8, 0.1);
+      color: #eab308;
+    }
+
+    .status-badge.info {
+      background: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+    }
+
+    @media (max-width: 640px) {
+      .analytics-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .analytics-card-value {
+        font-size: 2rem;
+      }
+
+      .analytics-controls {
+        flex-direction: column;
+      }
+
+      .analytics-controls button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1>Analytics Dashboard</h1>
+        <p>View your portfolio's anonymous analytics. All data is collected locally in your browser and keeps you in control.</p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top: 0;">
+      <div class="analytics-container">
+        <!-- Controls -->
+        <div class="analytics-controls">
+          <button id="btn-refresh">🔄 Refresh</button>
+          <button id="btn-export">💾 Export JSON</button>
+          <button id="btn-share">📤 Share on GitHub</button>
+          <button id="btn-clear" class="danger">🗑️ Clear All Data</button>
+        </div>
+
+        <!-- Summary Stats -->
+        <div class="analytics-grid" id="analytics-summary">
+          <div class="analytics-card">
+            <div class="analytics-card-label">Total Events</div>
+            <div class="analytics-card-value" id="stat-total-events">0</div>
+            <div class="analytics-card-detail">Across all event types</div>
+          </div>
+          <div class="analytics-card">
+            <div class="analytics-card-label">Unique Pages</div>
+            <div class="analytics-card-value" id="stat-unique-pages">0</div>
+            <div class="analytics-card-detail">Pages viewed</div>
+          </div>
+          <div class="analytics-card">
+            <div class="analytics-card-label">Project Clicks</div>
+            <div class="analytics-card-value" id="stat-project-clicks">0</div>
+            <div class="analytics-card-detail">Projects explored</div>
+          </div>
+          <div class="analytics-card">
+            <div class="analytics-card-label">Queries</div>
+            <div class="analytics-card-value" id="stat-searches">0</div>
+            <div class="analytics-card-detail">Search queries</div>
+          </div>
+        </div>
+
+        <!-- Page Views -->
+        <div class="analytics-section">
+          <h2 class="analytics-section-title">Page Views</h2>
+          <div id="analytics-pages" class="analytics-list"></div>
+        </div>
+
+        <!-- Most Viewed Projects -->
+        <div class="analytics-section">
+          <h2 class="analytics-section-title">Most Viewed Projects</h2>
+          <div id="analytics-projects" class="analytics-list"></div>
+        </div>
+
+        <!-- Search Queries -->
+        <div class="analytics-section">
+          <h2 class="analytics-section-title">Search Queries</h2>
+          <div id="analytics-searches" class="analytics-list"></div>
+        </div>
+
+        <!-- Export Section -->
+        <div class="analytics-section">
+          <h2 class="analytics-section-title">Data Export & Privacy</h2>
+          <div class="analytics-export-area">
+            <h3>📋 How This Works</h3>
+            <p style="color: var(--color-text-muted); margin-bottom: var(--space-4);">
+              <strong>Privacy-First Tracking:</strong> This portfolio collects anonymous analytics directly in your browser using localStorage.
+              No data is sent to external servers. You have full control and can export or clear data anytime.
+            </p>
+            <p style="color: var(--color-text-muted); margin-bottom: var(--space-4);">
+              <strong>What's Tracked:</strong> Page views, project clicks, and search queries. <strong>Never tracked:</strong> 
+              IP addresses, user agents, cookies, or any personal information.
+            </p>
+            <p style="color: var(--color-text-muted); margin-bottom: var(--space-4);">
+              <strong>Data Storage:</strong> Stored in browser localStorage. Automatically cleaned up after 90 days.
+              You can clear it anytime using the "Clear All Data" button.
+            </p>
+
+            <h3 style="margin-top: var(--space-6); margin-bottom: var(--space-3);">📊 Raw Data</h3>
+            <div class="analytics-code" id="raw-data-export">
+              <em style="color: var(--color-text-muted);">Click "Export JSON" to see your raw analytics data here</em>
+            </div>
+
+            <h3 style="margin-bottom: var(--space-3);">🔗 GitHub Compliance</h3>
+            <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; margin-bottom: var(--space-4);">
+              <span class="status-badge success">✓ No External Services</span>
+              <span class="status-badge success">✓ Privacy Compliant</span>
+              <span class="status-badge success">✓ Zero Cost</span>
+              <span class="status-badge success">✓ GDPR Friendly</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script>
+    window.__onProjectsLoaded = function(){
+      renderNavbar('analytics');
+      renderFooter();
+      loadAndDisplayAnalytics();
+    };
+  </script>
+  <script src="src/data/projects/loader.js"></script>
+  <script src="src/js/analytics.js"></script>
+
+  <script>
+    function loadAndDisplayAnalytics() {
+      const aggregated = PortfolioAnalytics.exportAggregated();
+      const events = PortfolioAnalytics.exportEvents();
+
+      // Update summary stats
+      document.getElementById('stat-total-events').textContent = events.length.toLocaleString();
+      document.getElementById('stat-unique-pages').textContent = Object.keys(aggregated.pageViewsByPage).length;
+      document.getElementById('stat-project-clicks').textContent = (aggregated.eventsByType['project_click'] || 0).toLocaleString();
+      document.getElementById('stat-searches').textContent = Object.keys(aggregated.searchQueries).length;
+
+      // Page views
+      const pagesContainer = document.getElementById('analytics-pages');
+      const pages = aggregated.pageViewsByPage;
+      if (Object.keys(pages).length === 0) {
+        pagesContainer.innerHTML = '<div class="analytics-empty"><p>No page views tracked yet.</p></div>';
+      } else {
+        const sorted = Object.entries(pages).sort((a, b) => b[1] - a[1]);
+        pagesContainer.innerHTML = sorted.map(([page, count]) => `
+          <div class="analytics-list-item">
+            <div class="analytics-list-item-label">${page}</div>
+            <div class="analytics-list-item-value">${count}x</div>
+          </div>
+        `).join('');
+      }
+
+      // Project clicks
+      const projectsContainer = document.getElementById('analytics-projects');
+      const projects = aggregated.projectClicksByProject;
+      if (Object.keys(projects).length === 0) {
+        projectsContainer.innerHTML = '<div class="analytics-empty"><p>No project clicks tracked yet.</p></div>';
+      } else {
+        const sorted = Object.entries(projects).sort((a, b) => b[1] - a[1]).slice(0, 10);
+        projectsContainer.innerHTML = sorted.map(([projectId, count]) => `
+          <div class="analytics-list-item">
+            <div class="analytics-list-item-label">${projectId}</div>
+            <div class="analytics-list-item-value">${count} click${count !== 1 ? 's' : ''}</div>
+          </div>
+        `).join('');
+      }
+
+      // Search queries
+      const searchesContainer = document.getElementById('analytics-searches');
+      const searches = aggregated.searchQueries;
+      if (Object.keys(searches).length === 0) {
+        searchesContainer.innerHTML = '<div class="analytics-empty"><p>No searches tracked yet.</p></div>';
+      } else {
+        const sorted = Object.entries(searches).sort((a, b) => b[1] - a[1]).slice(0, 10);
+        searchesContainer.innerHTML = sorted.map(([query, count]) => `
+          <div class="analytics-list-item">
+            <div class="analytics-list-item-label">"${query}"</div>
+            <div class="analytics-list-item-value">${count}x</div>
+          </div>
+        `).join('');
+      }
+    }
+
+    // Button handlers
+    document.getElementById('btn-refresh').addEventListener('click', () => {
+      loadAndDisplayAnalytics();
+      alert('Analytics refreshed!');
+    });
+
+    document.getElementById('btn-export').addEventListener('click', () => {
+      const aggregated = PortfolioAnalytics.exportAggregated();
+      const dataStr = JSON.stringify(aggregated, null, 2);
+      document.getElementById('raw-data-export').textContent = dataStr;
+
+      // Also download as file
+      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(dataBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `portfolio-analytics-${new Date().toISOString().split('T')[0]}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById('btn-share').addEventListener('click', () => {
+      const aggregated = PortfolioAnalytics.exportAggregated();
+      const dataStr = JSON.stringify(aggregated, null, 2);
+      const encoded = encodeURIComponent(dataStr);
+
+      // Create GitHub Discussion/Issue URL
+      const repoUrl = 'https://github.com/Darkmidget/Portfolio';
+      const message = `## Portfolio Analytics Summary\n\n\`\`\`json\n${dataStr}\n\`\`\`\n\n_Shared by courtesy of the Analytics Dashboard_`;
+      const issueUrl = `${repoUrl}/discussions/new?category=general`;
+
+      alert('Opening GitHub Discussions. Please paste the following in your comment (copy button available):\n\n' + dataStr.substring(0, 100) + '...\n\nOr copy the full data from the "Raw Data" section below.');
+      window.open(issueUrl, '_blank');
+    });
+
+    document.getElementById('btn-clear').addEventListener('click', () => {
+      if (confirm('🚨 Are you sure? This will clear ALL analytics data from your browser. This cannot be undone.')) {
+        localStorage.removeItem('portfolio_analytics_events');
+        localStorage.removeItem('portfolio_analytics_cleanup');
+        loadAndDisplayAnalytics();
+        alert('✓ All analytics data cleared.');
+      }
+    });
+
+    // Initial load
+    loadAndDisplayAnalytics();
+  </script>
+</body>
+</html>

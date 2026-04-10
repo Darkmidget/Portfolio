@@ -461,3 +461,43 @@ Edit `renderNavbar()` function in `src/js/app.js` to add custom pages.
    ```
 
 ---
+
+## 📊 Analytics Dashboard (New!)
+
+Track portfolio engagement **without external services, trackers, or privacy violations.**
+
+### Features
+- ✅ **Privacy-First** — Collects data in visitors' browsers, never sent to servers
+- ✅ **Zero Cost** — No analytics service subscriptions
+- ✅ **GDPR Compliant** — No personal data, completely anonymous
+- ✅ **GitHub-Only** — Uses GitHub Artifacts for optional data export
+- ✅ **Automatic Cleanup** — Data expires after 90 days
+
+### What's Tracked
+- Page views (which pages, when)
+- Project clicks (which projects get engagement)
+- Search queries (what visitors search for)
+- External link clicks (which resources matter most)
+
+### How to Use
+
+#### **For Visitors**
+1. Visit `/analytics.html` on your live portfolio
+2. View your browser's anonymous analytics dashboard
+3. Export data as JSON or share summaries to GitHub Discussions
+4. Data stays on your computer — you control everything
+
+#### **For Developers**
+1. Analytics automatically collected from all portfolio pages
+2. View implementation: `src/js/analytics.js` 
+3. Dashboard UI: `analytics.html`
+4. Manual trigger analytics export: `.github/workflows/analytics-export.yml`
+
+**For detailed setup and API docs, see [ANALYTICS.md](ANALYTICS.md)**
+
+### Quick Start
+- Nothing to configure — analytics automatically enabled on all pages
+- Visitors can view their data at `/analytics.html`
+- Optional: Enable weekly updates via GitHub Actions (see Actions → Analytics Data Export)
+
+---

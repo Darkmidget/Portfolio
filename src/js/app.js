@@ -31,6 +31,7 @@ function renderNavbar(activePage) {
     { href: 'projects.html', label: 'Projects', id: 'projects' },
     { href: 'contact.html', label: 'Contact', id: 'contact' },
     { href: 'editor.html', label: 'Editor', id: 'editor' },
+    { href: 'analytics.html', label: 'Analytics', id: 'analytics' },
   ];
 
   const linksHtml = pages.map(p =>

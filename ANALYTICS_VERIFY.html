@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Analytics Implementation Verification</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 { color: #333; margin-top: 0; }
+    h2 { color: #555; margin-top: 30px; border-bottom: 2px solid #007acc; padding-bottom: 10px; }
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      margin: 8px 0;
+      background: #f9f9f9;
+      border-left: 4px solid #ccc;
+      border-radius: 4px;
+    }
+    .checklist-item.done {
+      background: #e6f7e6;
+      border-left-color: #22c55e;
+    }
+    .checklist-item.pending {
+      background: #fff3e6;
+      border-left-color: #f59e0b;
+    }
+    .checklist-item.error {
+      background: #fee;
+      border-left-color: #ef4444;
+    }
+    .checkbox {
+      width: 20px;
+      height: 20px;
+      margin-right: 12px;
+      font-size: 16px;
+    }
+    .status {
+      font-weight: 600;
+      margin-left: auto;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+    .status.ok { background: #dcfce7; color: #166534; }
+    .status.pending { background: #fef3c7; color: #b45309; }
+    .status.fail { background: #fee2e2; color: #991b1b; }
+    code {
+      background: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+    }
+    .section-note {
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 4px;
+    }
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.95em;
+      font-weight: 600;
+    }
+    .btn-primary { background: #007acc; color: white; }
+    .btn-primary:hover { background: #005f99; }
+    .btn-secondary { background: #6c757d; color: white; }
+    .btn-secondary:hover { background: #5a6268; }
+    .output {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 15px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85em;
+      overflow-x: auto;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 Analytics Implementation Verification</h1>
+    
+    <section>
+      <h2>✅ Implementation Checklist</h2>
+      
+      <div id="checklist"></div>
+      
+      <div class="button-group">
+        <button class="btn-primary" onclick="runFullCheck()">Run Full Check</button>
+        <button class="btn-secondary" onclick="testDevMode()">Test Dev Mode</button>
+      </div>
+      
+      <div id="output"></div>
+    </section>
+
+    <section>
+      <h2>📋 Deployed Files</h2>
+      <div class="section-note">
+        <strong>Core Files:</strong><br>
+        ✓ src/js/analytics.js — Tracker implementation<br>
+        ✓ analytics.html — Dashboard UI<br>
+        ✓ .github/workflows/analytics-export.yml — Weekly export job
+      </div>
+      
+      <div class="section-note">
+        <strong>Documentation:</strong><br>
+        ✓ ANALYTICS.md — Technical guide<br>
+        ✓ ANALYTICS_SETUP.md — Quick start guide<br>
+        ✓ README.md — Updated with analytics info
+      </div>
+    </section>
+
+    <section>
+      <h2>🚀 Next Steps</h2>
+      <ol>
+        <li>Push changes to GitHub: <code>git push origin main</code></li>
+        <li>Visit your live portfolio: <code>https://darkmidget.github.io/Portfolio/analytics.html</code></li>
+        <li>Browse portfolio pages to generate test events</li>
+        <li>Click "Refresh" in analytics dashboard to see data</li>
+        <li>Test "Export JSON" to download your data</li>
+        <li>Optional: Enable GitHub Actions for weekly exports</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>🔗 Important Links</h2>
+      <ul>
+        <li><a href="../analytics.html" target="_blank">View Analytics Dashboard</a></li>
+        <li><a href="../ANALYTICS.md" target="_blank">Read Technical Documentation</a></li>
+        <li><a href="../ANALYTICS_SETUP.md" target="_blank">View Setup Guide</a></li>
+      </ul>
+    </section>
+  </div>
+
+  <script>
+    const checks = [
+      {
+        title: 'Analytics Tracker (src/js/analytics.js)',
+        test: async () => typeof PortfolioAnalytics !== 'undefined',
+        description: 'Core tracking functionality'
+      },
+      {
+        title: 'localStorage API',
+        test: async () => {
+          try {
+            localStorage.setItem('test', 'test');
+            localStorage.removeItem('test');
+            return true;
+          } catch(e) {
+            return false;
+          }
+        },
+        description: 'Required for data storage'
+      },
+      {
+        title: 'Event Collection',
+        test: async () => {
+          const events = PortfolioAnalytics?.exportEvents?.();
+          return Array.isArray(events);
+        },
+        description: 'Can retrieve collected events'
+      },
+      {
+        title: 'Data Aggregation',
+        test: async () => {
+          const agg = PortfolioAnalytics?.exportAggregated?.();
+          return agg && typeof agg === 'object' && agg.totalEvents !== undefined;
+        },
+        description: 'Can aggregate and summarize data'
+      },
+      {
+        title: 'Dev Mode Toggle',
+        test: async () => {
+          return typeof PortfolioAnalytics?.enableDevMode === 'function';
+        },
+        description: 'Can enable/disable dev mode for testing'
+      }
+    ];
+
+    async function runCheck(check) {
+      try {
+        const result = await check.test();
+        return {
+          title: check.title,
+          description: check.description,
+          passed: result === true,
+          status: result ? 'OK' : 'FAILED'
+        };
+      } catch(e) {
+        return {
+          title: check.title,
+          description: check.description,
+          passed: false,
+          status: 'ERROR: ' + e.message.substring(0, 50)
+        };
+      }
+    }
+
+    async function runFullCheck() {
+      const output = document.getElementById('output');
+      output.innerHTML = '<div class="output">Running checks...</div>';
+      
+      const results = await Promise.all(checks.map(runCheck));
+      
+      let html = '<div class="output">';
+      results.forEach(r => {
+        const cls = r.passed ? 'done' : 'error';
+        const icon = r.passed ? '✓' : '✗';
+        const statusCls = r.passed ? 'ok' : 'fail';
+        html += `
+          <div class="checklist-item ${cls}">
+            <div class="checkbox">${icon}</div>
+            <div>
+              <div style="font-weight: 600">${r.title}</div>
+              <div style="font-size: 0.9em; color: #666">${r.description}</div>
+            </div>
+            <span class="status ${statusCls}">${r.status}</span>
+          </div>
+        `;
+      });
+      html += '</div>';
+      
+      const allPassed = results.every(r => r.passed);
+      if (allPassed) {
+        html += '<div class="section-note" style="background: #dcfce7; border-left-color: #22c55e; color: #166534; margin-top: 20px;"><strong>✓ All checks passed!</strong> Your analytics system is ready to use.</div>';
+      } else {
+        html += '<div class="section-note" style="background: #fee; border-left-color: #ef4444; color: #991b1b; margin-top: 20px;"><strong>✗ Some checks failed.</strong> Please review the errors above.</div>';
+      }
+      output.innerHTML = html;
+    }
+
+    function testDevMode() {
+      const output = document.getElementById('output');
+      output.innerHTML = '<div class="output">Testing dev mode...</div>';
+      
+      try {
+        PortfolioAnalytics.enableDevMode();
+        
+        // Generate test events
+        window.portfolioAnalytics.trackEvent('test_event', { test: true });
+        
+        const events = PortfolioAnalytics.exportEvents();
+        const agg = PortfolioAnalytics.exportAggregated();
+        
+        output.innerHTML = `
+          <div class="section-note">
+            <strong>✓ Dev Mode Active!</strong><br>
+            Events collected: ${events.length}<br>
+            Latest event: ${events[events.length - 1]?.name || 'none'}<br>
+            Event breakdown: ${JSON.stringify(agg.eventsByType)}
+          </div>
+          <div class="output">
+            <strong>Raw Export:</strong><br>
+            ${JSON.stringify(agg, null, 2).substring(0, 500)}...
+          </div>
+        `;
+      } catch(e) {
+        output.innerHTML = `<div class="section-note" style="background: #fee; border-left-color: #ef4444;"><strong>Error:</strong> ${e.message}</div>`;
+      }
+    }
+
+    // Initial render
+    function renderChecklist() {
+      const html = checks.map(c => `
+        <div class="checklist-item pending">
+          <div class="checkbox">?</div>
+          <div>
+            <div style="font-weight: 600">${c.title}</div>
+            <div style="font-size: 0.9em; color: #666">${c.description}</div>
+          </div>
+          <span class="status pending">PENDING</span>
+        </div>
+      `).join('');
+      document.getElementById('checklist').innerHTML = html;
+    }
+
+    renderChecklist();
+  </script>
+</body>
+</html>
