@@ -44,9 +44,27 @@ The proposal was implemented in-store using existing infrastructure. Minimal CAP
 - Strategic Location: Positioning products near the decompression zone captures customers in a discovery mindset rather than the initial speed-through.
 - Low-Change Infra: Research indicates ~70% of purchase decisions are made at the shelf; small visual cues often outperform large structural overhauls in ROI.
 
-### Visual References
+### Visual References & Media
 
-Included photos (reference): three in-store images demonstrating the matte-black shelving, segmented placement, and user testing setup.
+**Design Concepts:**
+
+![Cover concept and brand positioning](resources/Pictures/lg-retail-innovation/cover.png)
+
+![Design mockup of shelf packaging presentation](resources/Pictures/lg-retail-innovation/design_of_shelf_packaging_mockup.png)
+
+![Customer journey story map and user insights](resources/Pictures/lg-retail-innovation/story_map.png)
+
+**Video Documentation:**
+
+<div class="video-grid">
+  <div class="video-item">
+    <video controls loop muted>
+      <source src="resources/Videos/lg-retail-innovation/Poc_of_transforming_packaging_into%20instant_noodle_container.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="video-caption">POC of transforming packaging into instant noodle container</div>
+  </div>
+</div>
 
 ### Outcome
 
