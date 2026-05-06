@@ -1,5 +1,6 @@
 /* ========================================
-   Portfolio App - Core JavaScript (Refactored for Modularity)
+   Portfolio App - Core JavaScript
+   Shared across all pages
    ======================================== */
 
 // ─── SVG Icons ─────────────────────────────
@@ -20,555 +21,585 @@ const ICONS = {
   search: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>',
 };
 
-// ─── Utilities (Encapsulated) ──────────────────────
-const Utils = {
-  /** Debounce function for rate limiting calls */
-  debounce: (fn, delay) => {
-    let timer;
-    return (...args) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => fn(...args), delay);
-    };
-  },
+// ─── Navbar Component ──────────────────────
+function renderNavbar(activePage) {
+  const nav = document.getElementById('navbar-container');
+  if (!nav) return;
 
-  /** Helper to parse dates from project data */
-  _projectDateValue: (p) => {
-    if (!p || !p.date) return 0;
-    const d = p.date;
-    if (typeof d === 'number') return d;
-    if (typeof d === 'string') {
-      // Try to extract a 4-digit year first
-      const yearMatch = d.match(/(\d{4})/);
-      if (yearMatch) return parseInt(yearMatch[1], 10);
-      const ts = Date.parse(d);
-      if (!isNaN(ts)) return ts;
-    }
-    return 0;
-  },
+  const pages = [
+    { href: 'index.html', label: 'Home', id: 'home' },
+    { href: 'projects.html', label: 'Projects', id: 'projects' },
+    { href: 'contact.html', label: 'Contact', id: 'contact' },
+    { href: 'editor.html', label: 'Editor', id: 'editor' },
+    { href: 'analytics.html', label: 'Analytics', id: 'analytics' },
+  ];
 
-  /** Sorts projects by date descending */
-  _sortByDateDesc: (list) => {
-    return (list || []).slice().sort((a, b) => {
-      const va = Utils._projectDateValue(a);
-      const vb = Utils._projectDateValue(b);
-      return vb - va;
+  const linksHtml = pages.map(p =>
+    `<a href="${p.href}" class="${p.id === activePage ? 'active' : ''}">${p.label}</a>`
+  ).join('');
+
+  nav.innerHTML = `
+    <nav class="navbar" id="main-navbar">
+      <div class="navbar-inner">
+        <a href="index.html" class="navbar-brand">V<span>.</span>Ho</a>
+        <div class="navbar-links" id="navbar-links">
+          ${linksHtml}
+        </div>
+        <button class="navbar-toggle" id="navbar-toggle" aria-label="Menu">
+          ${ICONS.menu}
+        </button>
+      </div>
+    </nav>
+  `;
+
+  // Mobile toggle
+  const toggle = document.getElementById('navbar-toggle');
+  const links = document.getElementById('navbar-links');
+  if (toggle && links) {
+    toggle.addEventListener('click', () => {
+      const isOpen = links.classList.toggle('open');
+      toggle.innerHTML = isOpen ? ICONS.close : ICONS.menu;
     });
-  },
-
-  /** Shows a temporary toast notification */
-  showToast: (message, type = 'success') => {
-    const existing = document.querySelector('.toast');
-    if (existing) existing.remove();
-
-    const toast = document.createElement('div');
-    toast.className = `toast ${type}`;
-    toast.textContent = message;
-    document.body.appendChild(toast);
-
-    setTimeout(() => toast.remove(), 3000);
-  },
-
-  /** Copies text to clipboard using modern or fallback methods */
-  copyToClipboard: (text) => {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(text).then(() => Utils.showToast('Copied to clipboard!'));
-    } else {
-      // Fallback
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-      Utils.showToast('Copied to clipboard!');
-    }
-  },
-
-  /** Scroll animations observer setup */
-  initScrollAnimations: () => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   }
-};
 
+  // Scroll effect
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('main-navbar');
+    if (!navbar) return;
+    if (window.scrollY > 50) {
+      navbar.style.background = 'rgba(9, 9, 11, 0.95)';
+    } else {
+      navbar.style.background = 'rgba(9, 9, 11, 0.8)';
+    }
+    lastScroll = window.scrollY;
+  });
+}
 
-// ─── Markdown Parser (Encapsulated) ───────────────────────
-const MarkdownParser = {
-  parse: (md) => {
-    if (!md) return '';
-    let html = md;
+// ─── Footer Component ──────────────────────
+function renderFooter() {
+  const footer = document.getElementById('footer-container');
+  if (!footer) return;
 
-    // Normalize line endings
-    html = html.replace(/\r\n/g, '\n');
+  const d = PORTFOLIO_DATA.profile;
+  const year = new Date().getFullYear();
 
-    // Code blocks (``` ... ```) - Escaping HTML content within code block is crucial
-    html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
-      const escaped = code.replace(/</g, '<').replace(/>/g, '>');
-      return `<pre><code class="lang-${lang}">${escaped}</code></pre>`;
-    });
+  footer.innerHTML = `
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-links">
+          ${d.links.github ? `<a href="${d.links.github}" target="_blank" rel="noopener">${ICONS.github} GitHub</a>` : ''}
+          ${d.links.linkedin ? `<a href="${d.links.linkedin}" target="_blank" rel="noopener">${ICONS.linkedin} LinkedIn</a>` : ''}
+          ${d.links.email ? `<a href="mailto:${d.links.email}">${ICONS.email} Email</a>` : ''}
+        </div>
+        <p>&copy; ${year} ${d.name}. Built with vanilla HTML, CSS & JS.</p>
+      </div>
+    </footer>
+  `;
+}
 
-    // Inline code
-    html = html.replace(/`([^`\n]+)`/g, '<code class="inline-code">$1</code>');
+// ─── Markdown Parser ───────────────────────
+function parseMarkdown(md) {
+  if (!md) return '';
+  let html = md;
 
-    // Images
-    html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" loading="lazy">');
+  // Normalize line endings
+  html = html.replace(/\r\n/g, '\n');
 
-    // Links
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  // Code blocks (``` ... ```)
+  html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
+    const escaped = code.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return `<pre><code class="lang-${lang}">${escaped}</code></pre>`;
+  });
 
-    // Blockquotes
-    html = html.replace(/^> (.+)$/gm, '<blockquote class="markdown-blockquote">$1</blockquote>');
+  // Inline code
+  html = html.replace(/`([^`\n]+)`/g, '<code>$1</code>');
 
-    // Headers (order matters: specific to general)
-    html = html.replace(/^#### (.+)$/gm, '<h4 class="md-header">$1</h4>');
-    html = html.replace(/^### (.+)$/gm, '<h3 class="md-header">$1</h3>');
-    html = html.replace(/^## (.+)$/gm, '<h2 class="md-header">$1</h2>');
-    html = html.replace(/^# (.+)$/gm, '<h1 class="md-header">$1</h1>');
+  // Images
+  html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" loading="lazy">');
 
-    // Bold & Italic (Applied after headers to avoid conflicts)
-    html = html.replace(/\*\*([^*]+)\*\*/g, '<strong class="markdown-strong">$1</strong>');
-    html = html.replace(/\*([^*]+)\*/g, '<em class="markdown-italic">$1</em>');
+  // Links
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
 
-    // Strikethrough
-    html = html.replace(/~~([^~]+)~~/g, '<del class="markdown-strikethrough">$1</del>');
+  // Blockquotes
+  html = html.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
 
-    // Horizontal rules
-    html = html.replace(/^---$/gm, '<hr class="markdown-hr">');
+  // Headers (must come before bold processing)
+  html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
+  html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+  html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+  html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
 
-    // List Block Processing (Simplified block grouping)
-    const lines = html.split('\n');
-    const blocks = [];
-    let currentBlock = [];
-    let inList = false;
-    let listType = null; // 'ul' or 'ol'
+  // Bold
+  html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
 
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
+  // Italic
+  html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
 
-      // Detect start of a new block type that breaks lists/code blocks
-      if (line.match(/^<pre>/) || line.includes('</pre>')) {
-        // Handle pre-formatted code block contextually if needed, but for simplicity here, we treat it as its own block.
-        currentBlock.push(line);
+  // Strikethrough
+  html = html.replace(/~~([^~]+)~~/g, '<del>$1</del>');
+
+  // Horizontal rules
+  html = html.replace(/^---$/gm, '<hr>');
+
+  // Build blocks
+  const lines = html.split('\n');
+  const blocks = [];
+  let currentBlock = [];
+  let inList = false;
+  let inPre = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    // Track pre blocks
+    if (line.startsWith('<pre>')) inPre = true;
+    if (line.includes('</pre>')) { inPre = false; currentBlock.push(line); continue; }
+    if (inPre) { currentBlock.push(line); continue; }
+
+    // Check if line is a list item
+    const listMatch = line.match(/^[-*] (.+)$/);
+
+    if (listMatch) {
+      if (!inList) {
+        // Flush current block
+        if (currentBlock.length > 0) {
+          blocks.push(currentBlock.join('\n'));
+          currentBlock = [];
+        }
+        inList = true;
+      }
+      currentBlock.push(`<li>${listMatch[1]}</li>`);
+    } else {
+      if (inList) {
+        blocks.push('<ul>' + currentBlock.join('\n') + '</ul>');
+        currentBlock = [];
+        inList = false;
+      }
+
+      // Check for numbered list
+      const numMatch = line.match(/^\d+\. (.+)$/);
+      if (numMatch) {
+        // Simple handling: wrap individual
+        currentBlock.push(`<li>${numMatch[1]}</li>`);
+        // Peek: is next line also numbered?
+        if (i + 1 >= lines.length || !lines[i + 1].match(/^\d+\. /)) {
+          blocks.push('<ol>' + currentBlock.join('\n') + '</ol>');
+          currentBlock = [];
+        }
         continue;
       }
 
-      const listItemMatch = line.match(/^[-*] (.+)$/);
-      const numberedListItemMatch = line.match(/^\d+\. (.+)$/);
-
-      if (listItemMatch) {
-        if (!inList || listType !== 'ul') {
-          // Flush previous block if switching from non-list to UL or changing list type
-          if (currentBlock.length > 0 && !currentBlock[0].startsWith('<li')) {
-            blocks.push(currentBlock.join('\n'));
-            currentBlock = [];
-          }
-          inList = true;
-          listType = 'ul';
-        }
-        currentBlock.push(`<li>${listItemMatch[1]}</li>`);
-
-      } else if (numberedListItemMatch) {
-        if (!inList || listType !== 'ol') {
-           // Flush previous block if switching from non-list to OL or changing list type
-          if (currentBlock.length > 0 && !currentBlock[0].startsWith('<li')) {
-            blocks.push(currentBlock.join('\n'));
-            currentBlock = [];
-          }
-          inList = true;
-          listType = 'ol';
-        }
-        currentBlock.push(`<li>${numberedListItemMatch[1]}</li>`);
-
-      } else {
-        // Not a list item, flush current block if it was a list
-        if (inList) {
-          blocks.push(`<${listType}>` + currentBlock.join('\n') + `</${listType}>`);
+      if (line.trim() === '') {
+        if (currentBlock.length > 0) {
+          blocks.push(currentBlock.join('\n'));
           currentBlock = [];
-          inList = false;
-          listType = null;
         }
-
-        // If the line is not empty, it's content for a paragraph/block element
-        if (line.trim() !== '') {
-            currentBlock.push(line);
-        } else if (currentBlock.length > 0) {
-             // Empty line breaks up paragraphs in raw text mode
-             blocks.push(currentBlock.join('\n'));
-             currentBlock = [];
-        }
-      }
-    }
-
-    // Flush remaining block
-    if (currentBlock.length > 0) {
-      if (inList) {
-        blocks.push(`<${listType}>` + currentBlock.join('\n') + `</${listType}>`);
       } else {
-        blocks.push(currentBlock.join('\n'));
+        currentBlock.push(line);
       }
     }
-
-    // Wrap non-tagged blocks in <p> tags
-    const finalHtml = blocks.map(block => {
-      block = block.trim();
-      if (!block) return '';
-      // Don't wrap blocks that are already structured HTML elements
-      if (/^<(h[1-6]|ul|ol|li|pre|blockquote|hr|img|div|table)/.test(block)) return block;
-      return `<p class="markdown-paragraph">${block.replace(/\n/g, '<br>')}</p>`;
-    }).join('\n');
-
-    // Final cleanup pass for adjacent elements (e.g., closing tags)
-    let cleanedHtml = finalHtml;
-    cleanedHtml = cleanedHtml.replace(/<\/blockquote>\s*<blockquote/gi, '</blockquote class="markdown-blockquote"><blockquote class="markdown-blockquote">');
-
-
-    return cleanedHtml;
   }
-};
 
-// ─── Project Card Renderer (Encapsulated) ─────────
-const ProjectCardRenderer = {
-  render: (project) => {
-    const statusClass = project.status.replace(/\s+/g, '-');
+  // Flush remaining
+  if (inList && currentBlock.length > 0) {
+    blocks.push('<ul>' + currentBlock.join('\n') + '</ul>');
+  } else if (currentBlock.length > 0) {
+    blocks.push(currentBlock.join('\n'));
+  }
 
-    const thumbnailHtml = project.thumbnail
-      ? `<img src="${project.thumbnail}" alt="${project.title}" loading="lazy">`
-      : `<div class="placeholder-icon">${ICONS.code}</div>`;
+  // Wrap non-tagged blocks in <p>
+  html = blocks.map(block => {
+    block = block.trim();
+    if (!block) return '';
+    // Don't wrap blocks that start with HTML tags
+    if (/^<(h[1-6]|ul|ol|li|pre|blockquote|hr|img|div|table|video)/.test(block)) return block;
+    return `<p>${block.replace(/\n/g, '<br>')}</p>`;
+  }).join('\n');
 
-    const tagsHtml = project.tags.slice(0, 3).map(tag =>
-      `<span class="badge badge-tag">${tag}</span>`
+  // Clean up adjacent blockquotes
+  html = html.replace(/<\/blockquote>\n<blockquote>/g, '<br>');
+
+  return html;
+}
+
+// ─── Project Card Renderer ─────────────────
+function renderProjectCard(project) {
+  const statusClass = project.status.replace(/\s+/g, '-');
+
+  const thumbnailHtml = project.thumbnail
+    ? `<img src="${project.thumbnail}" alt="${project.title}" loading="lazy">`
+    : `<div class="placeholder-icon">${ICONS.code}</div>`;
+
+  const tagsHtml = project.tags.slice(0, 3).map(tag =>
+    `<span class="badge badge-tag">${tag}</span>`
+  ).join('');
+
+  return `
+    <a href="project.html?id=${project.id}" class="project-card">
+      <div class="project-card-thumb">${thumbnailHtml}</div>
+      <div class="project-card-body">
+        <div class="project-card-header">
+          <h3 class="project-card-title">${project.title}</h3>
+          <span class="badge badge-status ${statusClass}">
+            <span class="dot"></span>
+            ${project.status.replace('-', ' ')}
+          </span>
+        </div>
+        <p class="project-card-summary">${project.summary}</p>
+        <div class="project-card-footer">
+          <div class="project-card-tags">${tagsHtml}</div>
+          <span class="text-muted" style="font-size:0.8rem;">${project.date}</span>
+        </div>
+      </div>
+    </a>
+  `;
+}
+
+// ─── Featured Projects (Homepage) ──────────
+function renderFeaturedProjects() {
+  const container = document.getElementById('featured-projects');
+  if (!container) return;
+
+  const featured = _sortByDateDesc(PORTFOLIO_DATA.projects.filter(p => p.featured));
+
+  if (featured.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">${ICONS.code}</div>
+        <p>No featured projects yet. Mark a project as <code>featured: true</code> in projects.js</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = featured.map(renderProjectCard).join('');
+}
+
+// ─── All Projects (Gallery Page) ───────────
+function renderAllProjects() {
+  const container = document.getElementById('all-projects');
+  const searchInput = document.querySelector('.search-input');
+  const filterContainer = document.getElementById('filter-pills');
+  if (!container) return;
+
+  const projects = _sortByDateDesc(PORTFOLIO_DATA.projects);
+
+  // Debug: log loaded project ids to help diagnose missing entries
+  try {
+    console.groupCollapsed('PORTFOLIO_DATA.projects');
+    projects.forEach(p => console.log(p.id, 'featured=', !!p.featured));
+    console.groupEnd();
+  } catch (e) {
+    console.warn('Could not enumerate PORTFOLIO_DATA.projects', e);
+  }
+
+  // Build category filters
+  const categories = ['All', ...new Set(projects.map(p => p.category))];
+  if (filterContainer) {
+    filterContainer.innerHTML = categories.map((cat, i) =>
+      `<button class="filter-pill ${i === 0 ? 'active' : ''}" data-category="${cat}">${cat}</button>`
     ).join('');
 
-    return `
-      <a href="project.html?id=${project.id}" class="project-card">
-        <div class="project-card-thumb">${thumbnailHtml}</div>
-        <div class="project-card-body">
-          <div class="project-card-header">
-            <h3 class="project-card-title">${project.title}</h3>
-            <span class="badge badge-status ${statusClass}">
-              <span class="dot"></span>
-              ${project.status.replace('-', ' ')}
-            </span>
-          </div>
-          <p class="project-card-summary">${project.summary}</p>
-          <div class="project-card-footer">
-            <div class="project-card-tags">${tagsHtml}</div>
-            <span class="text-muted" style="font-size:0.8rem;">${project.date}</span>
-          </div>
-        </div>
-      </a>
-    `;
-  }
-};
-
-// ─── Project Rendering Logic (Encapsulated) ──────────
-const ProjectRenderer = {
-  renderFeatured: (featuredProjects) => {
-    const container = document.getElementById('featured-projects');
-    if (!container) return;
-
-    if (featuredProjects.length === 0) {
-      container.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-state-icon">${ICONS.code}</div>
-          <p>No featured projects yet. Mark a project as <code class="inline-code">featured: true</code> in projects.js</p>
-        </div>
-      `;
-      return;
-    }
-
-    container.innerHTML = featuredProjects.map(ProjectCardRenderer.render).join('');
-  },
-
-  renderAll: (projects) => {
-    const container = document.getElementById('all-projects');
-    const searchInput = document.querySelector('.search-input');
-    const filterContainer = document.getElementById('filter-pills');
-    if (!container) return;
-
-    // Build category filters
-    const categories = ['All', ...new Set(projects.map(p => p.category))];
-    if (filterContainer) {
-      filterContainer.innerHTML = categories.map((cat, i) =>
-        `<button class="filter-pill ${i === 0 ? 'active' : ''}" data-category="${cat}">${cat}</button>`
-      ).join('');
-
-      filterContainer.addEventListener('click', (e) => {
-        if (e.target.classList.contains('filter-pill')) {
-          filterContainer.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-          e.target.classList.add('active');
-          ProjectRenderer.applyFilters();
-        }
-      });
-    }
-
-    // Search setup
-    if (searchInput) {
-      searchInput.addEventListener('input', Utils.debounce(ProjectRenderer.applyFilters, 200));
-    }
-
-    ProjectRenderer.applyFilters = () => {
-      const query = (searchInput?.value || '').toLowerCase().trim();
-      const activeCat = filterContainer?.querySelector('.filter-pill.active')?.dataset.category || 'All';
-
-      const filtered = projects.filter(p => {
-        const matchesCat = activeCat === 'All' || p.category === activeCat;
-        const matchesSearch = !query ||
-          p.title.toLowerCase().includes(query) ||
-          p.summary.toLowerCase().includes(query) ||
-          p.tags.some(t => t.toLowerCase().includes(query)) ||
-          p.category.toLowerCase().includes(query);
-        return matchesCat && matchesSearch;
-      });
-
-      if (filtered.length === 0) {
-        container.innerHTML = `
-          <div class="empty-state" style="grid-column: 1/-1">
-            <div class="empty-state-icon">${ICONS.search}</div>
-            <p>No projects match your search. Try different keywords or filters.</p>
-          </div>
-        `;
-      } else {
-        container.innerHTML = filtered.map(ProjectCardRenderer.render).join('');
+    filterContainer.addEventListener('click', (e) => {
+      if (e.target.classList.contains('filter-pill')) {
+        filterContainer.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+        e.target.classList.add('active');
+        applyFilters();
       }
-    };
-
-    ProjectRenderer.applyFilters();
-  },
-
-  renderDetail: (projectId) => {
-    const container = document.getElementById('project-detail');
-    if (!container) return;
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
-
-    if (!id) {
-      container.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-state-icon">${ICONS.code}</div>
-          <p>Project not found. <a href="projects.html">Browse all projects</a></p>
-        </div>
-      `;
-      return;
-    }
-
-    const project = PORTFOLIO_DATA.projects.find(p => p.id === id);
-
-    if (!project) {
-      container.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-state-icon">${ICONS.code}</div>
-          <p>Project "${id}" not found. <a href="projects.html">Browse all projects</a></p>
-        </div>
-      `;
-      return;
-    }
-
-    const statusClass = project.status.replace(/\s+/g, '-');
-
-    const linksHtml = [];
-    if (project.links.github) {
-      linksHtml.push(`<a href="${project.links.github}" target="_blank" class="btn btn-outline btn-sm"><span class="icon">${ICONS.github}</span> GitHub</a>`);
-    }
-    if (project.links.demo) {
-      linksHtml.push(`<a href="${project.links.demo}" target="_blank" class="btn btn-primary btn-sm"><span class="icon">${ICONS.link}</span> Live Demo</a>`);
-    }
-    if (project.links.other) {
-      linksHtml.push(`<a href="${project.links.other}" target="_blank" class="btn btn-outline btn-sm"><span class="icon">${ICONS.link}</span> Link</a>`);
-    }
-
-    const tagsHtml = project.tags.map(t => `<span class="badge badge-tag">${t}</span>`).join('');
-
-    const coverHtml = project.thumbnail
-      ? `<img src="${project.thumbnail}" alt="${project.title}" class="project-detail-cover">`
-      : '';
-
-    // Update page title
-    document.title = `${project.title} | Vincent Ho`;
-
-    container.innerHTML = `
-      <div class="container project-detail">
-        <div class="project-detail-header">
-          <a href="projects.html" class="project-detail-back"><span class="icon">${ICONS.back}</span> Back to Projects</a>
-          <h1 class="project-detail-title">${project.title}</h1>
-          <div class="project-detail-meta">
-            <span class="badge badge-status ${statusClass}">
-              <span class="dot"></span>
-              ${project.status.replace('-', ' ')}
-            </span>
-            <span class="project-detail-meta-item"><span class="icon">${ICONS.calendar}</span> ${project.date}</span>
-            <span class="project-detail-meta-item"><span class="icon">${ICONS.folder}</span> ${project.category}</span>
-          </div>
-          <div class="project-detail-tags">${tagsHtml}</div>
-          ${linksHtml.length > 0 ? `<div class="project-detail-links">${linksHtml.join('')}</div>` : ''}
-        </div>
-        ${coverHtml}
-        <div class="markdown-content">
-          ${MarkdownParser.parse(project.content)}
-        </div>
-      </div>
-    `;
+    });
   }
-};
 
-// ─── Skills Grid Renderer (Encapsulated) ────────────────
-const SkillRenderer = {
-  render: () => {
-    const container = document.getElementById('skills-grid');
-    if (!container) return;
+  // Search
+  if (searchInput) {
+    searchInput.addEventListener('input', debounce(applyFilters, 200));
+  }
 
-    const skills = PORTFOLIO_DATA.skills;
-    const groups = {};
+  function applyFilters() {
+    const query = (searchInput?.value || '').toLowerCase().trim();
+    const activeCat = filterContainer?.querySelector('.filter-pill.active')?.dataset.category || 'All';
 
-    skills.forEach(s => {
-      if (!groups[s.category]) groups[s.category] = [];
-      groups[s.category].push(s.name);
+    const filtered = projects.filter(p => {
+      const matchesCat = activeCat === 'All' || p.category === activeCat;
+      const matchesSearch = !query ||
+        p.title.toLowerCase().includes(query) ||
+        p.summary.toLowerCase().includes(query) ||
+        p.tags.some(t => t.toLowerCase().includes(query)) ||
+        p.category.toLowerCase().includes(query);
+      return matchesCat && matchesSearch;
     });
 
-    container.innerHTML = Object.entries(groups).map(([category, items]) => `
-      <div class="skill-group">
-        <div class="skill-group-title">${category}</div>
-        <div class="skill-list">
-          ${items.map(item => `<span class="skill-item">${item}</span>`).join('')}
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state" style="grid-column: 1/-1">
+          <div class="empty-state-icon">${ICONS.search}</div>
+          <p>No projects match your search. Try different keywords or filters.</p>
         </div>
-      </div>
-    `).join('');
+      `;
+    } else {
+      container.innerHTML = filtered.map(renderProjectCard).join('');
+    }
   }
-};
 
-// ─── Stats Renderer (Encapsulated) ─────────────────────
-const StatRenderer = {
-  render: () => {
-    const container = document.getElementById('stats-row');
-    if (!container) return;
+  applyFilters();
+}
 
-    const projects = PORTFOLIO_DATA.projects;
-    const completed = projects.filter(p => p.status === 'completed').length;
-    const inProgress = projects.filter(p => p.status === 'in-progress').length;
-    const totalSkills = PORTFOLIO_DATA.skills.length;
+// ─── Project Detail (Detail Page) ──────────
+function renderProjectDetail() {
+  const container = document.getElementById('project-detail');
+  if (!container) return;
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const projectId = urlParams.get('id');
+
+  if (!projectId) {
     container.innerHTML = `
-      <div class="stat-item">
-        <span class="stat-value">${projects.length}</span>
-        <span class="stat-label">Projects</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-value">${completed}</span>
-        <span class="stat-label">Completed</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-value">${inProgress}</span>
-        <span class="stat-label">In Progress</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-value">${totalSkills}</span>
-        <span class="stat-label">Technologies</span>
+      <div class="empty-state">
+        <div class="empty-state-icon">${ICONS.code}</div>
+        <p>Project not found. <a href="projects.html">Browse all projects</a></p>
       </div>
     `;
+    return;
   }
-};
 
-// ─── Contact Page Renderer (Encapsulated) ────────────────
-const ContactRenderer = {
-  render: () => {
-    const container = document.getElementById('contact-grid');
-    if (!container) return;
+  const project = PORTFOLIO_DATA.projects.find(p => p.id === projectId);
 
-    const d = PORTFOLIO_DATA.profile;
-    const cards = [];
-
-    if (d.links.email) {
-      cards.push(`
-        <a href="mailto:${d.links.email}" class="contact-card">
-          <div class="contact-card-icon">${ICONS.email}</div>
-          <div class="contact-card-info">
-            <h3>Email</h3>
-            <p>${d.links.email}</p>
-          </div>
-        </a>
-      `);
-    }
-
-    if (d.links.github) {
-      cards.push(`
-        <a href="${d.links.github}" target="_blank" rel="noopener" class="contact-card">
-          <div class="contact-card-icon">${ICONS.github}</div>
-          <div class="contact-card-info">
-            <h3>GitHub</h3>
-            <p>${d.links.github.replace('https://github.com/', '@')}</p>
-          </div>
-        </a>
-      `);
-    }
-
-    if (d.links.linkedin) {
-      cards.push(`
-        <a href="${d.links.linkedin}" target="_blank" rel="noopener" class="contact-card">
-          <div class="contact-card-icon">${ICONS.linkedin}</div>
-          <div class="contact-card-info">
-            <h3>LinkedIn</h3>
-            <p>${d.links.linkedin.replace('https://linkedin.com/in/', '@')}</p>
-          </div>
-        </a>
-      `);
-    }
-
-    container.innerHTML = cards.join('');
+  if (!project) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">${ICONS.code}</div>
+        <p>Project "${projectId}" not found. <a href="projects.html">Browse all projects</a></p>
+      </div>
+    `;
+    return;
   }
-};
 
+  const statusClass = project.status.replace(/\s+/g, '-');
 
-// ─── Initialization Logic (The main entry point) ────────────────
+  const linksHtml = [];
+  if (project.links.github) {
+    linksHtml.push(`<a href="${project.links.github}" target="_blank" class="btn btn-outline btn-sm">${ICONS.github} GitHub</a>`);
+  }
+  if (project.links.demo) {
+    linksHtml.push(`<a href="${project.links.demo}" target="_blank" class="btn btn-primary btn-sm">${ICONS.link} Live Demo</a>`);
+  }
+  if (project.links.other) {
+    linksHtml.push(`<a href="${project.links.other}" target="_blank" class="btn btn-outline btn-sm">${ICONS.link} Link</a>`);
+  }
+
+  const tagsHtml = project.tags.map(t =>
+    `<span class="badge badge-tag">${t}</span>`
+  ).join('');
+
+  const coverHtml = project.thumbnail
+    ? `<img src="${project.thumbnail}" alt="${project.title}" class="project-detail-cover">`
+    : '';
+
+  // Update page title
+  document.title = `${project.title} | Vincent Ho`;
+
+  container.innerHTML = `
+    <div class="container">
+      <div class="project-detail-header">
+        <a href="projects.html" class="project-detail-back">${ICONS.back} Back to Projects</a>
+        <h1 class="project-detail-title">${project.title}</h1>
+        <div class="project-detail-meta">
+          <span class="badge badge-status ${statusClass}">
+            <span class="dot"></span>
+            ${project.status.replace('-', ' ')}
+          </span>
+          <span class="project-detail-meta-item">${ICONS.calendar} ${project.date}</span>
+          <span class="project-detail-meta-item">${ICONS.folder} ${project.category}</span>
+        </div>
+        <div class="project-detail-tags">${tagsHtml}</div>
+        ${linksHtml.length > 0 ? `<div class="project-detail-links">${linksHtml.join('')}</div>` : ''}
+      </div>
+      ${coverHtml}
+      <div class="markdown-content">
+        ${parseMarkdown(project.content)}
+      </div>
+    </div>
+  `;
+}
+
+// ─── Skills Grid (Homepage) ────────────────
+function renderSkills() {
+  const container = document.getElementById('skills-grid');
+  if (!container) return;
+
+  const skills = PORTFOLIO_DATA.skills;
+  const groups = {};
+
+  skills.forEach(s => {
+    if (!groups[s.category]) groups[s.category] = [];
+    groups[s.category].push(s.name);
+  });
+
+  container.innerHTML = Object.entries(groups).map(([category, items]) => `
+    <div class="skill-group">
+      <div class="skill-group-title">${category}</div>
+      <div class="skill-list">
+        ${items.map(item => `<span class="skill-item">${item}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─── Stats (Homepage) ─────────────────────
+function renderStats() {
+  const container = document.getElementById('stats-row');
+  if (!container) return;
+
+  const projects = PORTFOLIO_DATA.projects;
+  const completed = projects.filter(p => p.status === 'completed').length;
+  const inProgress = projects.filter(p => p.status === 'in-progress').length;
+  const totalSkills = PORTFOLIO_DATA.skills.length;
+
+  container.innerHTML = `
+    <div class="stat-item">
+      <span class="stat-value">${projects.length}</span>
+      <span class="stat-label">Projects</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">${completed}</span>
+      <span class="stat-label">Completed</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">${inProgress}</span>
+      <span class="stat-label">In Progress</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">${totalSkills}</span>
+      <span class="stat-label">Technologies</span>
+    </div>
+  `;
+}
+
+// ─── Contact Page ─────────────────────────
+function renderContactInfo() {
+  const container = document.getElementById('contact-grid');
+  if (!container) return;
+
+  const d = PORTFOLIO_DATA.profile;
+  const cards = [];
+
+  if (d.links.email) {
+    cards.push(`
+      <a href="mailto:${d.links.email}" class="contact-card">
+        <div class="contact-card-icon">${ICONS.email}</div>
+        <div class="contact-card-info">
+          <h3>Email</h3>
+          <p>${d.links.email}</p>
+        </div>
+      </a>
+    `);
+  }
+
+  if (d.links.github) {
+    cards.push(`
+      <a href="${d.links.github}" target="_blank" rel="noopener" class="contact-card">
+        <div class="contact-card-icon">${ICONS.github}</div>
+        <div class="contact-card-info">
+          <h3>GitHub</h3>
+          <p>${d.links.github.replace('https://github.com/', '@')}</p>
+        </div>
+      </a>
+    `);
+  }
+
+  if (d.links.linkedin) {
+    cards.push(`
+      <a href="${d.links.linkedin}" target="_blank" rel="noopener" class="contact-card">
+        <div class="contact-card-icon">${ICONS.linkedin}</div>
+        <div class="contact-card-info">
+          <h3>LinkedIn</h3>
+          <p>${d.links.linkedin.replace('https://linkedin.com/in/', '@')}</p>
+        </div>
+      </a>
+    `);
+  }
+
+  container.innerHTML = cards.join('');
+}
+
+// ─── Scroll Animations ────────────────────
+function initScrollAnimations() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+}
+
+// ─── Toast Notification ───────────────────
+function showToast(message, type = 'success') {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  setTimeout(() => toast.remove(), 3000);
+}
+
+// ─── Copy to Clipboard ───────────────────
+function copyToClipboard(text) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard!'));
+  } else {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Copied to clipboard!');
+  }
+}
+
+// ─── Project Date Helpers ─────────────────
+function _projectDateValue(p) {
+  if (!p) return 0;
+  const d = p.date;
+  if (!d) return 0;
+  if (typeof d === 'number') return d;
+  if (typeof d === 'string') {
+    // Try to extract a 4-digit year first
+    const yearMatch = d.match(/(\d{4})/);
+    if (yearMatch) return parseInt(yearMatch[1], 10);
+    const ts = Date.parse(d);
+    if (!isNaN(ts)) return ts;
+  }
+  return 0;
+}
+
+function _sortByDateDesc(list) {
+  return (list || []).slice().sort((a, b) => {
+    const va = _projectDateValue(a);
+    const vb = _projectDateValue(b);
+    return vb - va;
+  });
+}
+
+// ─── Utilities ────────────────────────────
+function debounce(fn, delay) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
+}
+
+// ─── Init ─────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  Utils.initScrollAnimations();
-
-  // Render functions based on current page context (This assumes the HTML pages call these functions)
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-
-  if (currentPage === 'projects.html') {
-    ProjectRenderer.renderAll(PORTFOLIO_DATA.projects);
-  } else if (currentPage.includes('project.html')) {
-    const projectId = new URLSearchParams(window.location.search).get('id');
-    ProjectRenderer.renderDetail(projectId);
-  } else if (currentPage === 'index.html') {
-    // Home Page Rendering
-    ProjectRenderer.renderFeatured(Utils._sortByDateDesc(PORTFOLIO_DATA.projects.filter(p => p.featured)));
-    SkillRenderer.render();
-    StatRenderer.render();
-    ContactRenderer.render();
-  } else if (currentPage === 'contact.html') {
-    ContactRenderer.render();
-  }
-
-  // Global utility setup that runs on all pages
-  if (document.getElementById('footer-container')) {
-    const d = PORTFOLIO_DATA.profile;
-    const year = new Date().getFullYear();
-    const footer = document.getElementById('footer-container');
-    if (footer) {
-      footer.innerHTML = `
-        <footer class="footer">
-          <div class="container">
-            <div class="footer-links">
-              ${d.links.github ? `<a href="${d.links.github}" target="_blank" rel="noopener"><span class="icon">${ICONS.github}</span> GitHub</a>` : ''}
-              ${d.links.linkedin ? `<a href="${d.links.linkedin}" target="_blank" rel="noopener"><span class="icon">${ICONS.linkedin}</span> LinkedIn</a>` : ''}
-              ${d.links.email ? `<a href="mailto:${d.links.email}"><span class="icon">${ICONS.email}</span> Email</a>` : ''}
-            </div>
-            <p>&copy; ${year} ${d.name}. Built with vanilla HTML, CSS & JS.</p>
-          </div>
-        </footer>
-      `;
-    }
-  }
-
+  initScrollAnimations();
 });
