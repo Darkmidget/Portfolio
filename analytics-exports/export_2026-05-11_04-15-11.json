@@ -1,0 +1,25 @@
+{
+  "exportMeta": {
+    "exportDate": "2026-05-11T04:15:11Z",
+    "exportedBy": "GitHub Actions Analytics Export",
+    "note": "This file contains aggregated analytics data structure. Data content includes visitor analytics collected from the portfolio website.",
+    "privacyNote": "All data is anonymized. No personal information (IP, user agents, identifiers) is collected."
+  },
+  "dataStructure": {
+    "totalEvents": 0,
+    "eventsByType": {},
+    "pageViewsByPage": {},
+    "projectClicksByProject": {},
+    "searchQueries": {},
+    "timeRange": {
+      "start": null,
+      "end": null
+    }
+  },
+  "instructions": {
+    "collectingData": "Visitors' browsers automatically collect anonymous analytics data in localStorage while browsing the portfolio.",
+    "accessingData": "Visit /analytics.html on the live site to view your own analytics dashboard.",
+    "exportingData": "Use the export function in the analytics dashboard to download your data locally.",
+    "githubIntegration": "To contribute your analytics summary, copy the aggregated data from the dashboard and submit it as a GitHub Discussion."
+  }
+}
