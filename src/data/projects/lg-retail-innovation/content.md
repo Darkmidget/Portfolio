@@ -1,19 +1,3 @@
-const PROJECT_lg_retail_innovation = {
-  id: "lg-retail-innovation",
-  title: "Retail Innovation for LG Foods (Singapore)",
-  status: "completed",
-  category: "Retail Design",
-  tags: ["Retail", "Design", "In-store", "UX", "Visual Merchandising"],
-  thumbnail: "resources/Pictures/lg-retail-innovation/cover.png",
-  date: "2020",
-  summary: "Low-infrastructure, high-impact shelf design intervention to improve visibility and workflow for LG Foods in Singapore supermarkets.",
-  featured: true,
-  links: {
-    github: "",
-    demo: "",
-    other: ""
-  },
-  content: `
 ## Project Overview
 
 Project Title: Retail Innovation for LG Foods (Singapore)
@@ -69,9 +53,3 @@ The proposal was implemented in-store using existing infrastructure. Minimal CAP
 ### Outcome
 
 Achieved higher visual prominence for LG packaging, easier restocking processes for staff, and an affordable, scalable intervention suitable for rollout across multiple stores.
-
-` 
-
-};
-
-if (typeof window !== 'undefined') window.PROJECT_lg_retail_innovation = PROJECT_lg_retail_innovation;

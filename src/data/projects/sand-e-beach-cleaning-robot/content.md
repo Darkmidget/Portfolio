@@ -1,19 +1,3 @@
-const PROJECT_sand_e_beach_cleaning_robot = {
-  id: "sand-e-beach-cleaning-robot",
-  title: "Sand‑E — Beach Cleaning Robot",
-  status: "in-progress",
-  category: "Robotics",
-  tags: ["CAD", "3D Printing", "Mechanical Design", "Electronics", "ROS2", "Autonomy", "Embedded"],
-  thumbnail: "resources/Pictures/sand-e/cover.png",
-  date: "2026",
-  summary: "A mission-ready autonomous robot that traverses sandy terrain and autonomously collects debris, achieving press coverage in Straits Times and field testing at Pasir Ris Park.",
-  featured: true,
-  links: {
-    github: "",
-    demo: "",
-    other: "https://www.straitstimes.com/singapore/environment/meet-sand-e-the-trash-picking-robot-developed-by-sutd-students-that-can-walk-on-sand",
-  },
-  content: `
 ## Evolution from RC to Autonomy
 
 Sand‑E is currently undergoing a strategic evolution, transitioning from a proven, **remote-controlled (RC) prototype** to a fully **autonomous mission-ready system**. The project is structured in two distinct phases:
@@ -200,7 +184,3 @@ We are rapidly advancing toward the first fully autonomous field trial.
 ---
 
 *Sand‑E represents the intersection of **robotics, sustainability, and iterative engineering**. I am currently leading the transition to make this award-winning platform fully autonomous.*
-`
-};
-
-if (typeof window !== 'undefined') window.PROJECT_sand_e_beach_cleaning_robot = PROJECT_sand_e_beach_cleaning_robot;

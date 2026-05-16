@@ -1,35 +1,8 @@
-const PROJECT_self_powered_iot_forest_monitoring_sensor = {
-  id: "self-powered-iot-forest-monitoring-sensor",
-  title: "Self-Powered IoT Forest Monitoring Sensor",
-  status: "completed",
-  category: "Hardware",
-  tags: [
-    "IoT",
-    "RF",
-    "Energy Harvesting",
-    "Materials",
-    "3D Printing",
-    "Composite",
-    "PETG",
-    "Electrical",
-    "Mechanical"
-  ],
-  thumbnail: "resources/Pictures/self-powered-iot-forest-monitoring-sensor/cover.png",
-  date: "2025",
-  summary:
-    "Modular self-powered IoT sensor for off-grid forest monitoring with low-frequency RF transmission and a PETG + CaCO3 composite enclosure.",
-  featured: false,
-  links: {
-    github: "",
-    demo: "",
-    other: ""
-  },
-  content: `
 ## Project Overview
 
 Self-Powered IoT Forest Monitoring Sensor
 
-This project developed a modular, self-powered IoT sensor designed to overcome connectivity and power limitations of forest monitoring systems. The device integrates a custom thermal trigger and a specialized wireless communication stack to provide reliable fire detection in off-grid environments.
+This project developed a modular, self-powered IoT sensor designed to overcome connectivity and power limitations of forest monitoring systems. The device integrates a custom thermal trigger and a specialized wireless communication stack to provide reliable fire detection in off-the-grid environments.
 
 ## Key Contributions
 
@@ -54,7 +27,3 @@ This project developed a modular, self-powered IoT sensor designed to overcome c
 ## Notes
 
 This project balances low-power RF engineering, sustainable monitoring goals, and material/process innovations to enable long-lived, off-grid environmental sensors.
-  `
-
-};
-if (typeof window !== 'undefined') window.PROJECT_self_powered_iot_forest_monitoring_sensor = PROJECT_self_powered_iot_forest_monitoring_sensor;

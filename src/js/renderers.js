@@ -37,7 +37,7 @@ function renderProjectCard(project) {
 /**
  * Render Project Detail Page
  */
-function renderProjectDetail() {
+async function renderProjectDetail() {
   const container = document.getElementById('project-detail');
   if (!container) return;
 
@@ -55,6 +55,20 @@ function renderProjectDetail() {
     return;
   }
 
+  // Load content from external file if specified
+  let content = project.content || '';
+  if (project.contentFile) {
+    try {
+      const res = await fetch(project.contentFile);
+      if (res.ok) {
+        content = await res.text();
+      }
+    } catch (e) {
+      console.error('Failed to load project content from:', project.contentFile, e);
+      content = '> [!ERROR]\n> Failed to load project content from file.';
+    }
+  }
+
   const statusClass = project.status.replace(/\s+/g, '-');
   const linksHtml = [];
   if (project.links.github) linksHtml.push(`<a href="${project.links.github}" target="_blank" class="btn btn-outline btn-sm">${ICONS.github} GitHub</a>`);
@@ -63,6 +77,25 @@ function renderProjectDetail() {
 
   const tagsHtml = project.tags.map(t => `<span class="badge badge-tag">${t}</span>`).join('');
   const coverHtml = project.thumbnail ? `<img src="${project.thumbnail}" alt="${project.title}" class="project-detail-cover">` : '';
+
+  // Render structured specs if available
+  let specsHtml = '';
+  if (project.specs && Object.keys(project.specs).length > 0) {
+    const specItems = Object.entries(project.specs).map(([label, value]) => `
+      <div class="spec-item">
+        <span class="spec-label">${label}</span>
+        <span class="spec-value">${value}</span>
+      </div>
+    `).join('');
+    specsHtml = `
+      <div class="project-specs">
+        <h3>Quick Specs</h3>
+        <div class="specs-grid">
+          ${specItems}
+        </div>
+      </div>
+    `;
+  }
 
   document.title = `${project.title} | Vincent Ho`;
 
@@ -80,8 +113,9 @@ function renderProjectDetail() {
         ${linksHtml.length > 0 ? `<div class="project-detail-links">${linksHtml.join('')}</div>` : ''}
       </div>
       ${coverHtml}
+      ${specsHtml}
       <div class="markdown-content">
-        ${parseMarkdown(project.content)}
+        ${parseMarkdown(content)}
       </div>
     </div>
   `;

@@ -63,7 +63,7 @@ const PORTFOLIO_DATA = {
   profile: {
     name: "Vincent Ho",
     title: "Software Developer & Engineer",
-    bio: "Building solutions through code and engineering. Passionate about robotics, web development, and solving complex problems with technology.",
+    bio: "As a versatile systems engineer, I blend robotics, electronics, coding, and business. Using a minimalistic approach, I bridge multidisciplinary gaps to design, CAD, prototype, and build efficient, high-impact functional solutions with assitance from AI tools",
     avatar: "resources/Pictures/self.png",
     links: {
       github: "https://github.com/Darkmidget",
@@ -96,7 +96,7 @@ const PORTFOLIO_DATA = {
   // may not expose `const` globals as `window` properties, so try
   // both identifier lookup and `window` fallback. Filter out any
   // undefined entries so the UI doesn't break.
-  projects: (function(){
+  projects: (function () {
     // Primary approach: try to read well-known globals created by each
     // project file. If any are missing (for example due to loading
     // order differences or an updated manifest), fall back to scanning

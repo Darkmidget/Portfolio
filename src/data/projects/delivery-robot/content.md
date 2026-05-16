@@ -1,19 +1,3 @@
-const PROJECT_delivery_robot = {
-  id: "delivery-robot",
-  title: "Delivery Robot",
-  status: "completed",
-  category: "Robotics",
-  tags: ["Python", "ROS", "C/C++", "Arduino", "Raspberry Pi", "LIDAR", "GPS"],
-  thumbnail: "resources/Pictures/delivery-robot/cover.png",
-  date: "2020",
-  summary: "Autonomous delivery robot prototype demonstrating waypoint navigation, sensor fusion, and remote operation.",
-  featured: true,
-  links: {
-    github: "",
-    demo: "",
-    other: "",
-  },
-  content: `
 ## Overview
 
 Autonomous delivery robot developed during polytechnic studies. The project combined ROS-based autonomy, embedded hardware, and a custom remote-control GUI to produce a robot capable of mapping, navigating waypoints, and returning to base.
@@ -43,6 +27,3 @@ This was a collaborative student project that emphasized iterative prototyping, 
 - **Leadership**: Served as Project Lead, responsible for ROS architecture, core algorithm development, and coordinating the software integration effort.
 
 Roles included ROS integration, embedded control, GUI development, and mechanical design.
-  `
-};
-if (typeof window !== 'undefined') window.PROJECT_delivery_robot = PROJECT_delivery_robot;

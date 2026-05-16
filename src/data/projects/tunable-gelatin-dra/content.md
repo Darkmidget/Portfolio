@@ -1,27 +1,3 @@
-const PROJECT_tunable_gelatin_dra = {
-  id: "tunable-gelatin-dra",
-  title: "Tunable Gelatin-based Dielectric Resonator Antenna (DRA)",
-  status: "completed",
-  category: "Electromagnetic Waves",
-  tags: [
-    "RF Design",
-    "Antennas",
-    "Dielectrics",
-    "CST Studio",
-    "Simulations",
-    "Material Science",
-    "Wearables"
-  ],
-  thumbnail: "resources/Pictures/gelatin-dra/thumbnail.jpg",
-  date: "2024",
-  summary: "A journey exploring the possibility of creating a gelatin with a tunable dielectric constant for the purpose of making a durable, 75% smaller Dielectric Resonating Antenna (DRA).",
-  featured: true,
-  links: {
-    github: "",
-    demo: "",
-    other: "",
-  },
-  content: `
 ## Project Vision: The 900 MHz "Jelly" Antenna
 This project, developed for the **Electromagnetic Waves** module, explores the frontier of soft-matter RF engineering. Our goal was to create a biocompatible, bendy, and biodegradable (3Bs) antenna module for real-time health monitoring, specifically for wound-care patches.
 
@@ -32,12 +8,12 @@ The mission was simple but ambitious: utilize sustainable materials to create a 
 ---
 
 ## Phase 1: Material Fabrication & Dielectric Tuning
-The innovation lies in our ability to harness the naturally high dielectric constant of water (\\epsilon_r \\approx 80) and optimize it by creating a stable hydrogel (gelatin) matrix. 
+The innovation lies in our ability to harness the naturally high dielectric constant of water ($\epsilon_r \approx 80$) and optimize it by creating a stable hydrogel (gelatin) matrix. 
 
 ### Adjusting the Water-to-Impurity Ratio
 The primary scientific question was: *How can we precisely shift the dielectric constant to hit a specific 900 MHz resonance?* 
 
-We discovered that by starting with high-purity water and then **adjusting the ratio of impurities (gelatin and additives)**, we could effectively "tune" the material properties. Through rigorous experimentation, we achieved a stable dielectric constant of **\\kappa \\approx 67**, providing the perfect balance between miniaturization and radiation efficiency.
+We discovered that by starting with high-purity water and then **adjusting the ratio of impurities (gelatin and additives)**, we could effectively "tune" the material properties. Through rigorous experimentation, we achieved a stable dielectric constant of **$\kappa \approx 67$**, providing the perfect balance between miniaturization and radiation efficiency.
 
 ![Hydrogel Material Samples & Fabrication](resources/Pictures/gelatin-dra/fabrication.jpg)
 
@@ -113,5 +89,3 @@ The measurements on the final prototype were exceptional, showing a near-perfect
 This research journey for the **Electromagnetic Waves** module taught us that sustainability and high-performance electronics are not mutually exclusive. 
 
 The core lesson was that **material tunability** is a powerful design tool; by simply adjusting the water-to-impurity ratios, we can create custom-fit RF solutions for the next generation of eco-friendly, wearable medical devices.
-`
-};

@@ -77,6 +77,42 @@ function parseMarkdown(md) {
         inList = false;
       }
 
+      // Check for table
+      if (line.trim().startsWith('|')) {
+        let tableLines = [];
+        let j = i;
+        while (j < lines.length && lines[j].trim().startsWith('|')) {
+          tableLines.push(lines[j].trim());
+          j++;
+        }
+        
+        if (tableLines.length >= 2 && tableLines[1].includes('---')) {
+          if (currentBlock.length > 0) {
+            blocks.push(currentBlock.join('\n'));
+            currentBlock = [];
+          }
+          
+          const tableData = tableLines.map(row => 
+            row.replace(/^\||\|$/g, '').split('|').map(c => c.trim())
+          );
+          
+          let tableHtml = '<table><thead><tr>';
+          tableData[0].forEach(h => tableHtml += `<th>${h}</th>`);
+          tableHtml += '</tr></thead><tbody>';
+          
+          for (let k = 2; k < tableData.length; k++) {
+            tableHtml += '<tr>';
+            tableData[k].forEach(c => tableHtml += `<td>${c}</td>`);
+            tableHtml += '</tr>';
+          }
+          tableHtml += '</tbody></table>';
+          
+          blocks.push(tableHtml);
+          i = j - 1;
+          continue;
+        }
+      }
+
       // Check for numbered list
       const numMatch = line.match(/^\d+\. (.+)$/);
       if (numMatch) {

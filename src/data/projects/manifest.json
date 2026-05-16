@@ -1,20 +1,21 @@
 {
   "projects": [
-    "delivery-robot.js",
-    "portfolio-website.js",
-    "exercising-spark.js",
-    "trading-search.js",
-    "firefighter-display.js",
-    "sand-e-beach-cleaning-robot.js",
-    "3d-food-extruder.js",
-    "lg-retail-innovation.js",
-    "semicon_apc_plasma_etch.js",
-    "lendah.js",
-    "autonomous-navigation-predictive-control.js",
-    "self-powered-iot-forest-monitoring-sensor.js"
-    ,"national-robotics-competition-2024.js",
-    "linear-regulator-boost-converter.js",
-    "fpga-signal-processor.js",
-    "tunable-gelatin-dra.js"
+    "delivery-robot/spec.js",
+    "portfolio-website/spec.js",
+    "exercising-spark/spec.js",
+    "trading-search/spec.js",
+    "firefighter-display/spec.js",
+    "sand-e-beach-cleaning-robot/spec.js",
+    "3d-food-extruder/spec.js",
+    "lg-retail-innovation/spec.js",
+    "semicon_apc_plasma_etch/spec.js",
+    "lendah/spec.js",
+    "autonomous-navigation-predictive-control/spec.js",
+    "self-powered-iot-forest-monitoring-sensor/spec.js",
+    "national-robotics-competition-2024/spec.js",
+    "linear-regulator-boost-converter/spec.js",
+    "fpga-signal-processor/spec.js",
+    "tunable-gelatin-dra/spec.js"
   ]
 }
+

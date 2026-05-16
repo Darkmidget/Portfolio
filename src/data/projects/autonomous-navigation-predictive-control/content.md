@@ -1,19 +1,3 @@
-const PROJECT_autonomous_navigation_predictive_control = {
-  id: "autonomous-navigation-predictive-control",
-  title: "Autonomous Navigation & Predictive Control",
-  status: "completed",
-  category: "Work / Internship",
-  tags: ["ROS2 Humble", "MPPI", "Model Predictive Control", "Groot2", "PyTrees", "Gazebo", "Digital Twin", "Perception", "Behavior Trees", "3D Point Cloud Processing", "Semantic Mapping", "Frontier Navigation", "Hardware Integration"],
-  thumbnail: "resources/Pictures/autonomous-navigation-predictive-control/cover.png",
-  date: "2025",
-  summary: "High-performance navigation stack using ROS2 and MPPI with behavior-tree decision logic and a Gazebo digital twin.",
-  featured: true,
-  links: {
-    github: "",
-    demo: "",
-    other: ""
-  },
-  content: `
 ## The Mission: Redefining Early-Stage Robotics at Griffin Labs
 
 My journey began as an R&D Intern at **Griffin Labs**, stepping into a project where the robot was still on the drawing board. Tasked with developing a high-performance autonomy stack for a specialized (and currently confidential) application, I learned that in cutting-edge robotics, you don’t wait for hardware—you build the future in parallel.
@@ -43,6 +27,3 @@ The most valuable part of my internship came when I transitioned my "perfect" si
 
 ## Tech Stack
 **ROS2 Humble, Gazebo, Python, MPPI / MPC, 3D Point Cloud Processing, Semantic Mapping, Behavior Trees (Groot2/PyTrees)**
-`};
-if (typeof window !== 'undefined') window.PROJECT_autonomous_navigation_predictive_control = PROJECT_autonomous_navigation_predictive_control;
-

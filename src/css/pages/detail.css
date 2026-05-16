@@ -54,3 +54,39 @@
   border: 1px solid var(--color-border);
   margin-bottom: var(--space-10);
 }
+
+/* Structured Specs */
+.project-specs {
+  margin-bottom: var(--space-10);
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+.project-specs h3 {
+  font-size: 1.1rem;
+  margin-bottom: var(--space-4);
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-4);
+}
+.spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+.spec-label {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.spec-value {
+  font-size: 0.95rem;
+  color: var(--color-text);
+}

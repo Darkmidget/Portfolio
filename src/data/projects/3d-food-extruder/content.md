@@ -1,19 +1,3 @@
-const PROJECT_3d_food_extruder = {
-  id: "3d-food-extruder",
-  title: "3D Food Extruder",
-  status: "completed",
-  category: "Robotics",
-  tags: ["Arduino", "3D Printing", "Upcycling", "Embedded"],
-  thumbnail: "",
-  date: "2019",
-  summary: "An upcycling system that converts surplus produce into printable food paste and 3D-prints custom edible shapes.",
-  featured: false,
-  links: {
-    github: "",
-    demo: "",
-    other: "",
-  },
-  content: `
 ## Project Overview
 
 The 3D Food Extruder is an innovative upcycling system designed to combat food wastage by converting "ugly" or unsold produce into customizable, 3D-printed food products. By dehydrating surplus fruits and vegetables into powder and rehydrating them into a printable paste, the project extends the shelf life of perishables while transforming waste into value.
@@ -38,7 +22,3 @@ Food waste is a critical global and local issue; in Singapore alone, over 800,00
 ## Awards & Recognition
 
 Finalist, IKEA Young Designer Award: This project was recognized for its sustainable approach to food waste and innovative use of upcycled materials, earning a position as a finalist in this prestigious design competition.
-  `
-
-};
-if (typeof window !== 'undefined') window.PROJECT_3d_food_extruder = PROJECT_3d_food_extruder;

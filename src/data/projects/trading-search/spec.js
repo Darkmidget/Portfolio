@@ -13,17 +13,12 @@ const PROJECT_trading_search = {
     demo: "",
     other: "",
   },
-  content: `
-## Overview
-
-Early-stage research into trading analysis and financial data search tools.
-
-## Goals
-
-- Develop analysis utilities for market data
-- Explore algorithmic approaches to pattern recognition
-- Build a personal toolkit for financial research
-  `
-
+  specs: {
+    "Language": "Python",
+    "Focus": "Financial Data Search & Analysis",
+    "Goal": "Algorithmic Pattern Recognition",
+    "Status": "Early Planning / Research"
+  },
+  contentFile: "src/data/projects/trading-search/content.md"
 };
 if (typeof window !== 'undefined') window.PROJECT_trading_search = PROJECT_trading_search;

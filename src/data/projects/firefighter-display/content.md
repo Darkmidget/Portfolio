@@ -1,19 +1,3 @@
-const PROJECT_firefighter_display = {
-  id: "firefighter-display",
-  title: "Adam & Eve — Firefighter HUD",
-  status: "completed",
-  category: "Hardware",
-  tags: ["Raspberry Pi", "Thermal Imaging", "Embedded", "AI", "Optics", "3D Printing", "Safety", "Business", "Product", "Public Safety", "helmet", "Electrical", "Mechanical"],
-  thumbnail: "resources/Pictures/firefighter-display/cover.png",
-  date: "2025",
-  summary: "A compact, retrofittable thermal heads-up display (HUD) helmet retrofit for firefighters that provides a hands-free, real-time thermal overlay in zero-visibility environments.",
-  featured: false,
-  links: {
-    github: "",
-    demo: "",
-    other: "",
-  },
-  content: `
 ## Overview
 
 Adam & Eve is a compact, retrofittable thermal heads-up display (HUD) designed to enhance firefighter safety and situational awareness in zero-visibility environments. Unlike traditional handheld thermal cameras that require head-down viewing and hinder mobility, this system integrates directly into existing SCBA masks and helmets to provide a hands-free, real-time thermal overlay.
@@ -108,6 +92,3 @@ The solution was designed for minimal disruption to existing systems and human b
 ## Impact
 
 This project establishes a foundation for next-generation protective gear that improves mission effectiveness and survivor outcomes by providing every responder with advanced "see-through-smoke" capabilities.
-  `
-};
-if (typeof window !== 'undefined') window.PROJECT_firefighter_display = PROJECT_firefighter_display;

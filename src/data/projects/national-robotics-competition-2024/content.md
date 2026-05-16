@@ -1,19 +1,3 @@
-const PROJECT_national_robotics_competition_2024 = {
-  id: "national-robotics-competition-2024",
-  title: "National Robotics Competition (NRC) 2024 — 1st Place",
-  status: "completed",
-  category: "Robotics",
-  tags: ["Autonomous", "Smorphi", "Open-Loop", "Path Mapping", "Shape-Shifting"],
-  thumbnail: "resources/Pictures/national-robotics-competition-2024/cover.png",
-  date: "2024",
-  summary: "1st Place (Smorphi Autonomous & Pilot Challenge) — high-speed minimalist autonomous navigation with shape-shifting robot.",
-  featured: false,
-  links: {
-    github: "",
-    demo: "",
-    other: ""
-  },
-  content: `
 ## Executive Summary
 I led my team to a 1st Place finish in the 2024 National Robotics Competition by rethinking the standard approach to autonomous navigation. While most teams relied on complex sensor arrays, we developed a "High-Speed Minimalist" workflow for the Smorphi — a unique robot utilizing a Tetris-based architecture capable of shape-shifting into various polyomino configurations to maximize area coverage.
 
@@ -36,7 +20,3 @@ I led my team to a 1st Place finish in the 2024 National Robotics Competition by
 ## Tech
 
 Open-Loop Motion Control, Custom Mapping Interface, Shape-Shifting Kinematics, Real-time Command Sequencing
-
-`
-};
-if (typeof window !== 'undefined') window.PROJECT_national_robotics_competition_2024 = PROJECT_national_robotics_competition_2024;

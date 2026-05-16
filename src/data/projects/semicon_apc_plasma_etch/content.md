@@ -1,19 +1,3 @@
-const PROJECT_semicon_apc_plasma_etch = {
-  id: "semicon-apc-plasma-etch",
-  title: "Next-Gen Plasma Etch: Advanced Real-Time Monitoring (Semicon Tech Zoomer)",
-  status: "completed",
-  category: "Semiconductor",
-  tags: ["APC", "Plasma", "OES", "Virtual Metrology", "Machine Learning", "RIE"],
-  thumbnail: "resources/Pictures/semicon_apc_plasma_etch/cover.png",
-  date: "2025",
-  summary: "Hybrid metrology framework linking plasma signals to wafer outcomes for closed-loop APC and reduced scrap.",
-  featured: false,
-  links: {
-    github: "",
-    demo: "",
-    other: "",
-  },
-  content: `
 ## Executive Summary & Problem Statement
 
 During the Semicon Tech Zoomer Bootcamp, our team addressed a key fabrication bottleneck: the mismatch between machine (indirect) data and actual wafer outcomes. Indirect parameters (RF power, gas flow) often fail to reflect direct results such as etch rate, selectivity, and profile uniformity, causing delayed defect detection and yield loss.
@@ -54,6 +38,3 @@ We proposed a Hybrid Metrology Framework that links "Cause" (plasma) with "Effec
 
 ## Notes
 This work was completed as part of the Semicon Tech Zoomer Bootcamp (Group 9). The project combines experimental sensing strategy and ML-based virtual metrology to enable closed-loop APC in plasma etch processes.
-  `
-};
-if (typeof window !== 'undefined') window.PROJECT_semicon_apc_plasma_etch = PROJECT_semicon_apc_plasma_etch;
