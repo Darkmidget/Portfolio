@@ -21,7 +21,8 @@ const PROJECT_linear_regulator_boost_converter = {
     "Control Logic": "PMOS-driven Bang-Bang (Unconditionally Stable)",
     "EMI Mitigation": "RC dampening network",
     "Passive Performance": "8A sustained (> 5 mins)",
-    "Active Performance": "30A max limit (with forced-air cooling)"
+    "Active Performance": "30A max limit (with forced-air cooling)",
+    "Debugging Tools": "Logic Analyzer & Digital Microscope"
   },
   contentFile: "src/data/projects/linear-regulator-boost-converter/content.md"
 };

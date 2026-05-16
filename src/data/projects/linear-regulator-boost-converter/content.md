@@ -9,7 +9,7 @@ All circuit logic, transient analysis, and thermal modeling were extensively sim
 The system is engineered to support two critical voltage rails, managing a theoretical continuous draw of **13A** per rail.
 
 | Parameter | 10V Rail Specification | 5V Rail Specification |
-| :--- | :--- | :--- |
+| :--- | : :--- | :--- |
 | **Input Voltage (V<sub>in</sub>)** | 12 V | 6 V |
 | **Output Voltage (V<sub>out</sub>)** | 10 V | 5 V |
 | **Maximum Current (I<sub>max</sub>)** | 13 A | 13 A |
@@ -103,6 +103,33 @@ Iteration 2B serves as a fallback. It omits the complex, highly sensitive safety
 ![Iteration 2B - 2D Layout](resources/Pictures/linear-regulator-boost-converter/2B_2D_pcb_4_layer.png)
 ![Iteration 2B - 3D View](resources/Pictures/linear-regulator-boost-converter/2B_3D_pcb_4_layer.png)
 *Figures: The Iteration 2B backup PCB drawing. With the complex safety logic removed, the 2D and 3D views highlight a much more streamlined routing strategy, focusing purely on raw power delivery.*
+
+---
+
+## Hardware Debugging & Rapid Recovery
+
+Despite extensive simulation, physical manufacturing often reveals unforeseen challenges. During the assembly and testing of Iteration 2A, a critical error was identified: the **operational amplifier's inverting and non-inverting inputs were accidentally swapped** in the PCB layout.
+
+### Diagnosis via Logic Analysis & Microscopy
+To identify why the control loop was failing to regulate, we utilized a **Logic Analyzer** to monitor the switching frequency and duty cycle of the bang-bang controller. The data showed the comparator was stuck in a permanent "OFF" state regardless of the load. 
+
+Further inspection under a **Digital Microscope** (as seen below) allowed us to trace the fine-pitch components and confirm the pinout mismatch between the schematic and the physical footprint.
+
+### The Last-Minute Fix: Wire Bridging
+With the project deadline approaching, there was no time for a complete PCB re-spin. To salvage the hardware, we performed a delicate "surgical" intervention:
+1. **Trace Cutting:** The incorrect traces leading to the op-amp inputs were physically severed.
+2. **Wire Bridging:** Ultra-thin enamel-coated wires were used to "bridge" the correct signals to the op-amp pins, effectively flipping the inputs back to their intended configuration.
+
+![Last-Minute Attempt](resources/Pictures/linear-regulator-boost-converter/Lastminute_wire_bidging.jpg)
+*Figure: The "last-minute" attempt at bridging the op-amp. The thin wires are soldered directly to the pins to bypass the swapped PCB traces.*
+
+![Verification under Microscope](resources/Pictures/linear-regulator-boost-converter/Lastminute_wire_bidging_2.jpg)
+*Figure: Verifying the surgical bridging under a digital microscope. This high-magnification view was essential for ensuring no solder bridges or shorts were created during the high-precision rework.*
+
+### Lessons Learned
+* **Pinout Double-Checking:** Always verify the physical footprint pinout against the datasheet, especially for parts with similar packages but different internal configurations.
+* **Agile Hardware Rework:** The ability to perform precise hardware bridging (or "dead-bugging") is a vital skill in rapid prototyping, allowing for functional validation even when the initial PCB has errors.
+* **The Value of Debugging Tools:** Without the Logic Analyzer and Digital Microscope, diagnosing such a subtle pinout error would have been significantly more time-consuming and prone to guesswork.
 
 ---
 

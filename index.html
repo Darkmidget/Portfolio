@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vincent Ho | Portfolio</title>
-  <meta name="description" content="Vincent Ho - Software Developer & Engineer. Portfolio showcasing projects in robotics, web development, and engineering.">
+  <meta name="description" content="Vincent Ho - Minimalistic Engineer">
   <link rel="stylesheet" href="src/css/main.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <div id="navbar-container"></div>
 
@@ -25,13 +27,16 @@
             </div>
             <h1>Vincent Ho</h1>
             <p class="hero-subtitle">
-              Software Developer &amp; Engineer building solutions through code, 
-              hardware, and creative problem solving.
+              Stripping away the noise to build high-impact solutions through code, hardware, and creative engineering.
             </p>
             <div class="hero-actions">
               <a href="projects.html" class="btn btn-primary">
                 View Projects
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
               </a>
               <a href="contact.html" class="btn btn-outline">Contact Me</a>
             </div>
@@ -46,12 +51,17 @@
     <section class="section section-alt">
       <div class="container">
         <h2 class="section-title">Featured Projects</h2>
-        <p class="section-subtitle">Highlighted work from my portfolio — explore the technical details, challenges, and outcomes of each project.</p>
+        <p class="section-subtitle">Highlighted work from my portfolio — explore the technical details, challenges, and
+          outcomes of each project.</p>
         <div class="projects-grid" id="featured-projects"></div>
         <div style="text-align: center; margin-top: var(--space-8);">
           <a href="projects.html" class="btn btn-outline">
             View All Projects
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
           </a>
         </div>
       </div>
@@ -71,13 +81,14 @@
       <div class="container">
         <h2 class="section-title">About</h2>
         <div style="max-width: 680px;">
-          <p style="color: var(--color-text-secondary); font-size: 1rem; line-height: 1.9; margin-bottom: var(--space-6);">
-            I'm Vincent Ho — a developer and engineer who enjoys building things that solve real problems. 
-            From autonomous robots to web applications, I'm driven by curiosity and the satisfaction of 
+          <p
+            style="color: var(--color-text-secondary); font-size: 1rem; line-height: 1.9; margin-bottom: var(--space-6);">
+            I'm Vincent Ho — a developer and engineer who enjoys building things that solve real problems.
+            From autonomous robots to web applications, I'm driven by curiosity and the satisfaction of
             turning ideas into working solutions.
           </p>
           <p style="color: var(--color-text-secondary); font-size: 1rem; line-height: 1.9;">
-            This portfolio serves as my project tracker and documentation hub. Each project includes 
+            This portfolio serves as my project tracker and documentation hub. Each project includes
             detailed write-ups covering the technical approach, challenges, and lessons learned.
           </p>
         </div>
@@ -87,7 +98,7 @@
 
   <div id="footer-container"></div>
   <script>
-    window.__onProjectsLoaded = function(){
+    window.__onProjectsLoaded = function () {
       renderNavbar('home');
       renderFooter();
       renderFeaturedProjects();
@@ -99,4 +110,5 @@
   <script src="src/js/analytics.js"></script>
   <script src="src/scripts/js/scripts.js" defer></script>
 </body>
+
 </html>
