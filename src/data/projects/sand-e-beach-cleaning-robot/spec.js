@@ -19,6 +19,8 @@ const PROJECT_sand_e_beach_cleaning_robot = {
     "Software Stack": "ROS 2 (Humble/Jazzy)",
     "Driveline": "12V 795 DC motors + 263:1 Planetary Gearboxes",
     "Localization": "Multi-constellation GNSS + IMU Sensor Fusion",
+    "Navigation": "Mapless Navigation (ROS 2)",
+    "Control Interface": "Cloud-Based Web UI",
     "Safety Systems": "LiDAR Obstacle Detection",
     "Mechanical Base": "Modified Professional Mechanical Trolley",
     "Press Coverage": "Featured in Straits Times"

@@ -113,6 +113,17 @@ The Phase 2 upgrade focuses on evolving the proven Phase 1 chassis into a high-p
 *   **Safety Sensing:** Integrating a **LiDAR** unit for basic obstacle detection and safety, ensuring the robot pauses operation if humans or animals enter its immediate proximity.
 *   **Mission Strategy:** Executing an **aerial sweep (grid-based)** pattern based on map coordinates to ensure 100% coverage of the target beach area.
 
+### **UI Control & Mapless Navigation**
+*   **Cloud-Based Interface:** Developed a web-based user interface that allows the robot to be monitored and controlled from any device (laptop, tablet, or smartphone) with an internet connection.
+*   **ROS 2 Bridging:** The UI acts as a bridge to the **ROS 2** navigation stack, translating high-level commands into robot actions.
+*   **Mapless Navigation:** Implemented a mapless navigation system that allows the robot to navigate through unstructured beach environments without requiring a pre-built static map, relying instead on real-time sensor data and UI inputs.
+*   **Simulation Testing:** The system is currently being validated in a simulated environment to refine the handoff between the UI and the autonomous navigation stack.
+
+<video width="100%" controls preload="metadata" style="border-radius: 8px; margin: 1.5rem 0; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+  <source src="resources/Videos/sand-e/UI_mapless_navigation.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 ### **Power Systems & Reliability**
 *   **Energy Management:** Upgrading to high-density battery packs with calculated power budgets to maximize "lifetime per charge" for long-duration autonomous missions.
 *   **Mechanical Hardening:** Iterative design improvements to minimize sand ingress into critical gears and linkages—reducing the need for frequent "deep maintenance."
@@ -124,10 +135,11 @@ We are rapidly advancing toward the first fully autonomous field trial.
 | Milestone | Status | Expected Delivery |
 |-----------|--------|-------------------|
 | i9 Compute & ROS 2 Setup | ✅ Completed | Feb 2026 |
-| GPS + IMU Sensor Fusion | 🟡 In Progress | Q1 2026 |
-| Autonomous Aerial Sweep Pattern | 🟡 In Progress | Q2 2026 |
-| High-Capacity Battery Integration | ⬜ Planned | Q2 2026 |
-| Full Autonomous Field Pilot | ⬜ Planned | Q3 2026 |
+| Web UI & Mapless Navigation | ✅ Completed | May 2026 |
+| GPS + IMU Sensor Fusion | 🟡 In Progress | Q2 2026 |
+| Autonomous Aerial Sweep Pattern | ⬜ Planned | Q3 2026 |
+| High-Capacity Battery Integration | ⬜ Planned | Q3 2026 |
+| Full Autonomous Field Pilot | ⬜ Planned | Q4 2026 |
 
 ### 🎯 **Pilot Testing & Real-World Validation**
 - Planning systematic pilot deployments at partner beaches to:
