@@ -1,0 +1,37 @@
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Secrets and Env
+Secrets/
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+venv/
+.venv/
+env/
+scripts/python/venv/
+
+# AI and Graphify
+.gemini/
+graphify-out/
+.agents/
+
+# Build and Temp
+dist/
+build/
+*.zip
+*.log
+analytics-exports/
+
+# Keep .gitignore and .md files tracked
+# (Removed .gitignore and *.md from this list)

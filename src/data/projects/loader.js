@@ -46,6 +46,15 @@
     }
 
     await loadScript('src/data/projects.js');
+    
+    // Core Modules
+    await loadScript('src/js/icons.js');
+    await loadScript('src/js/utils.js');
+    await loadScript('src/js/parser.js');
+    await loadScript('src/js/components.js');
+    await loadScript('src/js/renderers.js');
+    
+    // App Entry Point
     await loadScript('src/js/app.js');
 
     if (typeof window.__onProjectsLoaded === 'function') {

@@ -1,0 +1,34 @@
+/* ---------- Badges / Tags ---------- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.badge-tag {
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+.badge-status {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  gap: var(--space-1);
+}
+.badge-status .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+.badge-status.completed .dot { background: var(--status-completed); }
+.badge-status.in-progress .dot { background: var(--status-in-progress); }
+.badge-status.planning .dot { background: var(--status-planning); }
+.badge-status.on-hold .dot { background: var(--status-on-hold); }
+.badge-status.completed { color: var(--status-completed); background: rgba(34,197,94,0.08); }
+.badge-status.in-progress { color: var(--status-in-progress); background: rgba(234,179,8,0.08); }
+.badge-status.planning { color: var(--status-planning); background: rgba(59,130,246,0.08); }
+.badge-status.on-hold { color: var(--status-on-hold); background: rgba(161,161,170,0.08); }
