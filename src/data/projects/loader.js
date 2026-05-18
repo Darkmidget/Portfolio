@@ -12,7 +12,7 @@
   function loadScript(src){
     return new Promise((resolve, reject) => {
       const s = document.createElement('script');
-      s.src = src;
+      s.src = src + '?v=' + Date.now();
       s.async = false;
       s.onload = () => resolve(src);
       s.onerror = () => reject(new Error('Failed to load ' + src));

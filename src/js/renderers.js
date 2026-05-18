@@ -119,6 +119,55 @@ async function renderProjectDetail() {
       </div>
     </div>
   `;
+
+  // Post-render: Process and render Mermaid diagrams dynamically if present
+  console.log('renderProjectDetail: looking for mermaid blocks');
+  const mermaidBlocks = container.querySelectorAll('code.lang-mermaid');
+  console.log('renderProjectDetail: found mermaid blocks count:', mermaidBlocks.length);
+  if (mermaidBlocks.length > 0) {
+    mermaidBlocks.forEach((block, idx) => {
+      try {
+        const pre = block.parentElement;
+        const code = block.textContent || block.innerText;
+        console.log(`Processing mermaid block #${idx}:`, code.substring(0, 50));
+        
+        // Decode HTML entities
+        const decodedCode = code
+          .replace(/&lt;/g, '<')
+          .replace(/&gt;/g, '>')
+          .replace(/&amp;/g, '&');
+        
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = decodedCode;
+        
+        // Replace the <pre> block with the new <div>
+        pre.parentNode.replaceChild(div, pre);
+        console.log(`Successfully replaced block #${idx} with .mermaid div`);
+      } catch (err) {
+        console.error('Error processing mermaid block:', err);
+      }
+    });
+
+    // Load and run Mermaid.js dynamically
+    console.log('Loading Mermaid.js dynamically...');
+    if (typeof mermaid === 'undefined') {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mermaid@9/dist/mermaid.min.js';
+      script.onload = () => {
+        console.log('Mermaid.js loaded successfully. Initializing and running...');
+        mermaid.initialize({ startOnLoad: false, theme: 'dark' });
+        mermaid.init(undefined, '.mermaid');
+      };
+      script.onerror = (err) => {
+        console.error('Failed to load Mermaid.js script:', err);
+      };
+      document.head.appendChild(script);
+    } else {
+      console.log('Mermaid.js already exists. Running...');
+      mermaid.init(undefined, '.mermaid');
+    }
+  }
 }
 
 if (typeof window !== 'undefined') {
