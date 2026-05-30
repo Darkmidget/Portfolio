@@ -10,6 +10,7 @@ const PROJECT_fpga_signal_processor = {
   featured: false,
   links: {
     github: "https://github.com/Darkmidget/PRNG_V2",
+    paper: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6818538",
     demo: "",
     other: "",
   },
