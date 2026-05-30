@@ -1,7 +1,7 @@
 const PROJECT_sand_e_beach_cleaning_robot = {
   id: "sand-e-beach-cleaning-robot",
   title: "Sand‑E — Beach Cleaning Robot",
-  status: "in-progress",
+  status: "completed",
   category: "Robotics",
   tags: ["CAD", "3D Printing", "Mechanical Design", "Electronics", "ROS2", "Autonomy", "Embedded"],
   thumbnail: "resources/Pictures/sand-e/cover.png",

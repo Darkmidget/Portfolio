@@ -96,9 +96,9 @@ The RC version was rigorously tested in sandbox environments and on-site at Pasi
 
 ---
 
-## **Phase 2: Transition to Autonomy (Active Development)**
+## **Phase 2: Transition to Autonomy (ENDED 2026)**
 
-The Phase 2 upgrade focuses on evolving the proven Phase 1 chassis into a high-performance autonomous system. This involves a complete overhaul of the electronics and software stack to enable GPS-guided navigation and industrial-grade reliability.
+The Phase 2 upgrade focused on evolving the proven Phase 1 chassis into a high-performance autonomous system. This involved a complete overhaul of the electronics and software stack to enable GPS-guided navigation and industrial-grade reliability.
 
 ![Phase 2 Electronics Stack](resources/Pictures/sand-e/phase2_electronics.png)
 *The upgraded Phase 2 electronics stack featuring high-performance compute and advanced sensor arrays.*
@@ -129,23 +129,29 @@ The Phase 2 upgrade focuses on evolving the proven Phase 1 chassis into a high-p
 *   **Mechanical Hardening:** Iterative design improvements to minimize sand ingress into critical gears and linkages—reducing the need for frequent "deep maintenance."
 *   **Autonomy Goal:** The end-goal is a "set-and-forget" system that minimizes human intervention, both in operation and in maintenance.
 
-### 🚀 **Current Roadmap**
-We are rapidly advancing toward the first fully autonomous field trial.
+### **Autonomous Grid-based Navigation (Simulation)**
+*   **Simulation Environment:** Successfully validated the autonomous navigation stack within a simulated environment.
+*   **Autonomous Run:** Executed a full systematic grid-based beach cleaning pattern autonomously without human intervention.
 
-| Milestone | Status | Expected Delivery |
+<video width="100%" controls preload="metadata" style="border-radius: 8px; margin: 1.5rem 0; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+  <source src="resources/Videos/sand-e/autonomous_simulation_run.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+*Accelerated (x8 speed) autonomous run in simulation demonstrating grid-based navigation.*
+
+### 🚀 **Project Completion**
+The project has successfully reached its concluding milestones, validating the autonomous capabilities of the Sand-E platform.
+
+| Milestone | Status | Completed |
 |-----------|--------|-------------------|
 | i9 Compute & ROS 2 Setup | ✅ Completed | Feb 2026 |
 | Web UI & Mapless Navigation | ✅ Completed | May 2026 |
-| GPS + IMU Sensor Fusion | 🟡 In Progress | Q2 2026 |
-| Autonomous Aerial Sweep Pattern | ⬜ Planned | Q3 2026 |
-| High-Capacity Battery Integration | ⬜ Planned | Q3 2026 |
-| Full Autonomous Field Pilot | ⬜ Planned | Q4 2026 |
+| GPS + IMU Sensor Fusion | ✅ Completed | Q2 2026 |
+| Autonomous Aerial Sweep Pattern | ✅ Completed | Q3 2026 |
+| Full Autonomous Run (Simulation) | ✅ Completed | Q4 2026 |
 
-### 🎯 **Pilot Testing & Real-World Validation**
-- Planning systematic pilot deployments at partner beaches to:
-  - Refine autonomous navigation and control on **sandy, unstructured environments**
-  - Optimize cleaning efficiency and battery life
-  - Gather data for continuous system improvement
+### 🎯 **Project Conclusion**
+After extensive development spanning from the initial RC prototype to a fully autonomous simulated system, Sand-E has successfully proven the viability of autonomous beach cleaning technology. The project is now considered **completed** and all key objectives have been achieved.
 
 ## Technical Skills & Outcomes
 
@@ -163,10 +169,12 @@ We are rapidly advancing toward the first fully autonomous field trial.
 - **Team Development**: Trained multiple team members in robotics workflows, CAD, electronics, and autonomous systems.
 
 ### **Deliverables**
-✅ Functional robot prototype capable of traversing sandy terrain  \\ 
-✅ Field-tested at Pasir Ris Beach with successful public demonstration  \\ 
-✅ Press coverage and institutional recognition  \\ 
-✅ Technical roadmap for full autonomy and scaling to additional deployments  \\ 
+
+- ✅ Functional robot prototype capable of traversing sandy terrain.
+- ✅ Field-tested at Pasir Ris Beach with successful public demonstration.
+- ✅ Press coverage and institutional recognition.
+- ✅ Technical roadmap for full autonomy and scaling to additional deployments.
+- ✅ Working autonomous run simulation in a virtual beach environment.
 
 ## Key Technical Challenges to Overcome
 
@@ -187,7 +195,7 @@ We are rapidly advancing toward the first fully autonomous field trial.
 > - **Solution**: Redesigning seals and adopting "low-maintenance" mechanical components to minimize the frequency of robot deep maintenance and ensure reliable autonomous operation.
 
 ## Acknowledgements
-- **Polymate** — Technical mentorship.
+- **Polymate** — Technical mentorship and sponsorship
 - **SOAR Student Club** — Robotics community support.
 - **SUTD DAI Pillar & FABLAB** — Fabrication and chassis support.
 - **SUTD Marketing & Communication teams** — assistance with event planning, hosting, and small project funding for public demonstrations.
@@ -195,4 +203,4 @@ We are rapidly advancing toward the first fully autonomous field trial.
 
 ---
 
-*Sand‑E represents the intersection of **robotics, sustainability, and iterative engineering**. I am currently leading the transition to make this award-winning platform fully autonomous.*
+*Sand‑E represents the intersection of **robotics, sustainability, and iterative engineering**. The project has successfully concluded its development lifecycle and has been officially **archived**.*
