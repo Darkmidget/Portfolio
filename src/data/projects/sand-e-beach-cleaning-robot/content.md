@@ -195,6 +195,7 @@ After extensive development spanning from the initial RC prototype to a fully au
 > - **Solution**: Redesigning seals and adopting "low-maintenance" mechanical components to minimize the frequency of robot deep maintenance and ensure reliable autonomous operation.
 
 ## Acknowledgements
+- **Special Thanks**: Audrey Dominique and Cat Viet Minh for contributing to the project from start till end.
 - **Polymate** — Technical mentorship and sponsorship
 - **SOAR Student Club** — Robotics community support.
 - **SUTD DAI Pillar & FABLAB** — Fabrication and chassis support.
