@@ -1,3 +1,10 @@
+## Journey Video
+
+<video width="100%" controls preload="metadata" style="border-radius: 8px; margin: 1.5rem 0; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+  <source src="resources/Videos/sand-e/Journey_.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 ## Evolution from RC to Autonomy
 
 Sand‑E is currently undergoing a strategic evolution, transitioning from a proven, **remote-controlled (RC) prototype** to a fully **autonomous mission-ready system**. The project is structured in two distinct phases:
