@@ -174,7 +174,7 @@ After extensive development spanning from the initial RC prototype to a fully au
 - ✅ Field-tested at Pasir Ris Beach with successful public demonstration.
 - ✅ Press coverage and institutional recognition.
 - ✅ Technical roadmap for full autonomy and scaling to additional deployments.
-- ✅ Working autonomous run simulation in a virtual beach environment.
+- ✅ Working autonomous run simulation in a simulated environment.
 
 ## Key Technical Challenges to Overcome
 
